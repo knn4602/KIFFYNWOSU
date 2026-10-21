@@ -34,17 +34,9 @@ Each folder is one block that starts with a banner comment like this:
 
 ### Adding your photo
 
-Put your photo at `assets/photos/headshot.jpg`. In the ABOUT section, replace
+Name your photo **headshot.jpg** and put it in `assets/photos/`. That's it: it shows up automatically in the big About card on the home screen and in the About window. No code changes needed.
 
-```html
-<div class="photo"><span>[EDIT: your photo]</span></div>
-```
-
-with
-
-```html
-<div class="photo"><img src="assets/photos/headshot.jpg" alt="Kifekachukwu smiling"></div>
-```
+On GitHub: open the `assets` folder, then `photos`, click **Add file → Upload files**, drop in `headshot.jpg` and commit.
 
 ### Adding a screen recording
 
@@ -65,9 +57,6 @@ The details that appear when someone taps a laptop sticker are in the `skills` l
 
 The clickable objects on the desktop (polaroid, laptop, badge, magazine, photo, award) are in the `collage` block near the top of `index.html`. When you add your headshot, also replace `<span class="hi">hi, I'm Kiffy!</span>` inside the polaroid with `<img src="assets/photos/headshot.jpg" alt="">`.
 
-### The Code / Community filter
-
-Each entry has `data-lane="code"`, `data-lane="comm"` or `data-lane="both"`. That decides whether it shows when a visitor picks **Show: Code** or **Show: Community**. Use `both` for anything that belongs to both sides.
 
 ### Adding a new entry
 
