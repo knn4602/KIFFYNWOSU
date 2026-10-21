@@ -1,0 +1,1066 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kiffy OS</title>
+<meta name="description" content="Kifekachukwu Nwosu: computer science + women's, gender and sexuality studies at RIT. Software, AI evaluation and NLP research, gender equity advocacy, and leadership.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='4' y='4' width='56' height='56' rx='14' fill='%23FF48B0' stroke='%231B1B3A' stroke-width='5'/%3E%3Ctext x='32' y='45' font-family='Arial Black,Arial' font-weight='900' font-size='36' text-anchor='middle' fill='%231B1B3A'%3EK%3C/text%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Kiffy OS · Kifekachukwu Nwosu">
+<meta property="og:description" content="Code + community: software, AI evaluation and NLP research, and gender equity advocacy.">
+<meta property="og:image" content="assets/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Permanent+Marker&family=IBM+Plex+Mono:wght@500;700&family=Work+Sans:wght@400;500;700&display=swap">
+<!--
+  HOW TO EDIT
+  - Every spot to fill in is marked [EDIT: ...] (it shows on the page as pink dashed text). Search the file for "EDIT".
+  - Each folder is one <section class="win" ...> block, marked with a big comment banner.
+  - data-lane="code" / "comm" / "both" controls the Show: Code / Community filter.
+  - Photos go in assets/photos/, screen recordings in assets/recordings/, PDFs in assets/resumes/.
+-->
+<style>
+/* Layout: a riso-printed desktop. Folders open zine-style windows; "Scroll view" (and phones) stacks every window as one page. */
+:root {
+  --pink: #FF48B0;
+  --pink-ink: #C8006F;
+  --blue: #0078BF;
+  --blue-ink: #005A8F;
+  --yellow: #FFE800;
+  --ink: #1B1B3A;
+  --paper: #F5F5EF;
+  --white: #FFFFFF;
+  --muted: #4A4A68;
+  --display: 'Archivo Black', 'Arial Black', system-ui, sans-serif;
+  --hand: 'Permanent Marker', 'Comic Sans MS', cursive;
+  --mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --body: 'Work Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body {
+  font-family: var(--body); font-size: 15px; line-height: 1.55; color: var(--ink);
+  background-color: var(--paper);
+  background-image: radial-gradient(rgba(255,72,176,0.22) 1.6px, transparent 1.7px), radial-gradient(rgba(0,120,191,0.16) 1.6px, transparent 1.7px);
+  background-size: 14px 14px, 14px 14px; background-position: 0 0, 7px 7px;
+}
+a { color: var(--blue-ink); font-weight: 700; }
+a:hover { color: var(--pink-ink); }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.skip { position: absolute; left: 12px; top: -60px; z-index: 9999; background: var(--yellow); color: var(--ink); padding: 8px 14px; border: 2px solid var(--ink); font-weight: 700; }
+.skip:focus { top: 12px; }
+
+/* Menu bar */
+.menubar { position: fixed; inset: 0 0 auto 0; z-index: 5000; min-height: 46px; padding: env(safe-area-inset-top, 0px) max(16px, env(safe-area-inset-right, 0px)) 0 max(16px, env(safe-area-inset-left, 0px)); background: var(--ink); color: var(--paper); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; font-family: var(--mono); font-size: 13px; font-weight: 500; }
+.logo { font-family: var(--hand); font-size: 21px; color: var(--yellow); margin-right: 14px; white-space: nowrap; background: none; border: 0; padding: 2px 4px; cursor: pointer; }
+.logo:hover { color: var(--pink); }
+.logo:focus-visible { outline: 3px solid var(--yellow); outline-offset: 2px; }
+.menubar nav { display: flex; gap: 2px; flex-wrap: wrap; }
+.menubar nav button { background: none; border: 0; color: var(--paper); cursor: pointer; padding: 10px 8px; border-radius: 4px; font-family: var(--mono); font-size: 13px; }
+.menubar nav button:hover { background: rgba(255,255,255,0.12); }
+.filter { display: flex; align-items: center; gap: 4px; margin-left: auto; }
+.filter span { color: #B9B9D0; margin-right: 2px; }
+.filter button { background: transparent; border: 2px solid transparent; color: var(--paper); font-family: var(--mono); font-size: 12px; font-weight: 700; padding: 5px 9px; cursor: pointer; }
+.filter button:hover { border-color: var(--paper); }
+.filter button[aria-pressed="true"][data-lane-btn="all"] { background: var(--yellow); color: var(--ink); }
+.filter button[aria-pressed="true"][data-lane-btn="code"] { background: var(--blue); color: var(--white); }
+.filter button[aria-pressed="true"][data-lane-btn="comm"] { background: var(--pink); color: var(--ink); }
+.view-toggle { margin-left: 10px; background: var(--pink); color: var(--ink); font-family: var(--mono); font-size: 13px; font-weight: 700; padding: 7px 12px; border: 2px solid var(--paper); cursor: pointer; }
+.view-toggle:hover { background: var(--yellow); }
+
+/* Desktop + icons */
+.desktop { position: relative; min-height: 100%; padding-top: calc(46px + env(safe-area-inset-top, 0px)); }
+.icons { position: absolute; left: max(20px, env(safe-area-inset-left, 0px)); top: calc(66px + env(safe-area-inset-top, 0px)); display: grid; grid-template-columns: repeat(2, 96px); gap: 14px 10px; z-index: 1; }
+.icon { background: none; border: 0; cursor: pointer; padding: 6px 2px; display: flex; flex-direction: column; align-items: center; gap: 7px; border-radius: 6px; }
+.folder { width: 60px; height: 44px; border: 2px solid var(--ink); border-radius: 4px 12px 6px 6px; position: relative; box-shadow: 4px 4px 0 var(--shadow, var(--ink)); transition: transform .15s ease, box-shadow .15s ease; }
+.folder::before { content: ""; position: absolute; left: -2px; top: -9px; width: 26px; height: 9px; background: inherit; border: 2px solid var(--ink); border-bottom: 0; border-radius: 4px 6px 0 0; }
+.file { width: 46px; height: 58px; background: var(--white); border: 2px solid var(--ink); box-shadow: 4px 4px 0 var(--shadow, var(--ink)); position: relative; transition: transform .15s ease, box-shadow .15s ease; }
+.file::after { content: ""; position: absolute; left: 8px; right: 8px; top: 14px; height: 22px; background: repeating-linear-gradient(var(--ink) 0 2px, transparent 2px 7px); opacity: .35; }
+.icon:hover .folder, .icon:focus-visible .folder, .icon:hover .file, .icon:focus-visible .file { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--shadow, var(--ink)); }
+.icon span { font-family: var(--mono); font-size: 12px; font-weight: 700; background: var(--paper); padding: 1px 5px; line-height: 1.3; text-align: center; }
+
+/* Windows */
+.win { position: absolute; display: none; width: var(--w, 520px); max-width: calc(100vw - 32px); background: var(--white); border: 3px solid var(--ink); box-shadow: 8px 8px 0 var(--shadow, var(--ink)); z-index: 10; }
+.win.open { display: block; }
+.titlebar { display: flex; align-items: center; gap: 8px; min-height: 36px; padding: 0 6px 0 12px; background: var(--bar, var(--yellow)); color: var(--bar-ink, var(--ink)); border-bottom: 3px solid var(--ink); font-family: var(--mono); font-size: 13px; font-weight: 700; cursor: grab; user-select: none; touch-action: none; }
+.titlebar.dragging { cursor: grabbing; }
+.titlebar h2 { margin: 0; font-size: 13px; font-family: var(--mono); flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.dots { display: flex; gap: 6px; }
+.dots i { width: 12px; height: 12px; border-radius: 50%; border: 2px solid currentColor; display: block; }
+.dots i:first-child { background: currentColor; }
+.close { width: 30px; height: 30px; border: 2px solid var(--ink); background: var(--white); color: var(--ink); cursor: pointer; font-family: var(--mono); font-weight: 700; font-size: 15px; line-height: 1; display: grid; place-items: center; }
+.close:hover { background: var(--pink); }
+.content { padding: 20px 22px 22px; max-height: min(66vh, 580px); overflow: auto; }
+.content > * + * { margin-top: 14px; }
+.win h3 { font-family: var(--display); font-weight: 400; font-size: 19px; line-height: 1.15; margin: 0; }
+.pub-head { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 22px 0 4px; }
+.pub-head span { font-family: var(--display); font-weight: 400; font-size: 38px; line-height: 1; text-transform: uppercase; color: var(--ink); background: var(--yellow); border: 3px solid var(--ink); box-shadow: 5px 5px 0 var(--pink); padding: 8px 14px 6px; transform: rotate(-1.5deg); }
+.pub-head small { font-family: var(--mono); font-size: 13px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #fff; background: var(--blue); border: 2px solid var(--ink); padding: 5px 9px; }
+.win h4 { font-family: var(--mono); font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin: 6px 0 0; color: var(--muted); }
+.win p { margin: 0; }
+.kicker { font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.meta { font-family: var(--mono); font-size: 12.5px; color: var(--muted); }
+.todo { font-family: var(--mono); font-size: 12.5px; color: var(--pink-ink); border-bottom: 2px dashed var(--pink); }
+
+.tags { display: flex; gap: 6px; flex-wrap: wrap; }
+.tag { font-family: var(--mono); font-size: 11px; font-weight: 700; padding: 3px 8px; border: 2px solid var(--ink); line-height: 1.3; background: var(--white); }
+.tag.code { background: var(--blue); color: var(--white); }
+.tag.comm { background: var(--pink); color: var(--ink); }
+.tag.both { background: var(--yellow); color: var(--ink); }
+
+.entry { border-top: 2px dashed rgba(27,27,58,.25); padding-top: 14px; display: grid; gap: 6px; }
+.content > article.entry:first-of-type { border-top: 0; padding-top: 0; }
+.entry ul { margin: 2px 0 0; padding-left: 18px; }
+.entry li + li { margin-top: 3px; }
+
+/* About */
+.zine { display: flex; gap: 22px; align-items: flex-start; flex-wrap: wrap; }
+.photo { width: 170px; height: 210px; flex-shrink: 0; transform: rotate(-3deg); border: 2px solid var(--ink); background-color: var(--blue); background-image: radial-gradient(var(--paper) 28%, transparent 30%); background-size: 8px 8px; display: grid; place-items: center; overflow: hidden; }
+.photo img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.15); mix-blend-mode: multiply; }
+.photo span { background: var(--yellow); font-family: var(--mono); font-size: 12px; font-weight: 700; padding: 4px 8px; }
+.zine-text { flex: 1 1 260px; min-width: 0; display: grid; gap: 12px; }
+.riso { font-family: var(--display); font-weight: 400; font-size: clamp(34px, 5vw, 46px); line-height: .98; color: var(--pink); text-shadow: 4px 3px 0 var(--blue); margin: 0; text-wrap: balance; }
+.strip { justify-self: start; padding: 7px 12px; font-size: 17px; font-weight: 600; }
+.strip.dark { background: var(--ink); color: var(--paper); transform: rotate(1.5deg); }
+.strip.yel { background: var(--yellow); color: var(--ink); transform: rotate(-2deg); margin-left: 22px; font-weight: 700; }
+.sig { font-family: var(--hand); font-size: 22px; color: var(--blue-ink); }
+.facts { display: flex; gap: 8px; flex-wrap: wrap; }
+.facts span { font-family: var(--mono); font-size: 12px; font-weight: 700; padding: 4px 9px; background: var(--paper); border: 2px solid var(--ink); }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; }
+.tile { border: 2px solid var(--ink); padding: 12px; display: grid; gap: 2px; align-content: start; }
+.tile b { font-family: var(--display); font-size: 30px; line-height: 1; font-weight: 400; }
+.tile small { font-size: 13px; line-height: 1.35; }
+
+/* Sticker laptop */
+.laptop { background: #C9CED8; border: 3px solid var(--ink); border-radius: 18px 18px 6px 6px; padding: 18px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; position: relative; }
+.laptop::after { content: ""; position: absolute; left: 50%; top: 50%; width: 34px; height: 40px; transform: translate(-50%, -50%); border-radius: 50% 50% 46% 46%; background: rgba(27,27,58,.08); }
+.base { height: 14px; margin: 0 -12px; background: #9AA1B0; border: 3px solid var(--ink); border-top: 0; border-radius: 0 0 14px 14px; margin-top: 0 !important; }
+.sticker { position: relative; z-index: 1; cursor: pointer; border: 2px solid var(--ink); padding: 7px 11px; font-family: var(--display); font-size: 14px; box-shadow: 2px 2px 0 var(--ink); transition: transform .12s ease; }
+.sticker:hover, .sticker[aria-pressed="true"] { transform: scale(1.08) rotate(0deg) !important; }
+.sticker[aria-pressed="true"] { outline: 3px solid var(--ink); outline-offset: 2px; }
+.sticker.s1 { background: var(--blue); color: var(--white); border-radius: 999px; transform: rotate(-6deg); }
+.sticker.s2 { background: var(--yellow); color: var(--ink); border-radius: 4px; transform: rotate(4deg); }
+.sticker.s3 { background: var(--pink); color: var(--ink); border-radius: 14px; transform: rotate(-3deg); }
+.sticker.s4 { background: var(--white); color: var(--ink); border-radius: 50%; padding: 12px 10px; transform: rotate(7deg); }
+.sticker.s5 { background: var(--ink); color: var(--yellow); border-radius: 6px; transform: rotate(-8deg); }
+.sticker.method { background: var(--white); color: var(--pink-ink); border: 2px solid var(--ink); border-radius: 999px; transform: rotate(2deg); }
+.sticker.method::before { content: "\2665"; margin-right: 6px; color: var(--pink); }
+.sticker.method:nth-of-type(even) { transform: rotate(-3deg); }
+.sticker-info { background: var(--paper); border: 2px solid var(--ink); padding: 14px 16px; display: grid; gap: 8px; }
+.sticker-info h3 { font-size: 18px; }
+.sticker-info dl { margin: 0; display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 4px 12px; }
+.sticker-info dt { font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); padding-top: 2px; }
+.sticker-info dd { margin: 0; }
+.sticker-info .goto { justify-self: start; }
+@media (max-width: 520px) { .sticker-info dl { grid-template-columns: minmax(0, 1fr); } .sticker-info dd { margin-bottom: 6px; } }
+
+/* Project cards */
+.project { border: 2px solid var(--ink); display: grid; grid-template-columns: minmax(0, 1fr); }
+.demo { aspect-ratio: 16 / 9; max-width: 100%; background: var(--ink); color: var(--paper); display: grid; place-items: center; text-align: center; border-bottom: 2px solid var(--ink); background-image: repeating-linear-gradient(45deg, rgba(255,255,255,.04) 0 10px, transparent 10px 20px); }
+.demo video, .demo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.demo span { font-family: var(--mono); font-size: 12.5px; padding: 0 16px; }
+.project .body { padding: 14px 16px; display: grid; gap: 6px; }
+.links { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+.btn { display: inline-flex; align-items: center; gap: 6px; padding: 7px 13px; border: 2px solid var(--ink); background: var(--yellow); color: var(--ink); text-decoration: none; font-weight: 700; font-size: 13.5px; cursor: pointer; box-shadow: 3px 3px 0 var(--ink); }
+.btn:hover { background: var(--pink); color: var(--ink); }
+.btn.ghost { background: var(--white); }
+
+/* Leadership timeline */
+.timeline { display: grid; gap: 0; position: relative; padding-left: 26px; }
+.timeline::before { content: ""; position: absolute; left: 8px; top: 6px; bottom: 6px; width: 4px; background: repeating-linear-gradient(var(--ink) 0 8px, transparent 8px 14px); }
+.step { position: relative; padding: 0 0 18px; display: grid; gap: 6px; border-top: 0 !important; }
+.step::before { content: ""; position: absolute; left: -26px; top: 4px; width: 18px; height: 18px; border-radius: 50%; border: 3px solid var(--ink); background: var(--yellow); }
+.step:nth-child(2)::before { background: var(--pink); }
+.step:nth-child(3)::before { background: var(--blue); }
+.yr { font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--blue-ink); }
+
+/* Awards */
+.award { display: grid; grid-template-columns: 46px minmax(0, 1fr); gap: 12px; align-items: start; }
+.medal { width: 46px; height: 46px; border-radius: 50%; border: 2px solid var(--ink); display: grid; place-items: center; font-family: var(--display); font-size: 18px; }
+.award:nth-child(3n+1) .medal { background: var(--yellow); }
+.award:nth-child(3n+2) .medal { background: var(--pink); }
+.award:nth-child(3n) .medal { background: var(--blue); color: var(--white); }
+
+/* Résumés + contact */
+.doc { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; border: 2px solid var(--ink); padding: 10px 14px; }
+.copyrow { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.copyrow code { font-family: var(--mono); font-size: 15px; background: var(--paper); border: 2px solid var(--ink); padding: 6px 10px; user-select: all; }
+.status { font-family: var(--mono); font-size: 12px; color: var(--blue-ink); min-height: 1em; }
+
+/* Sticky note */
+.sticky { position: absolute; width: 220px; background: var(--yellow); padding: 16px 18px; box-shadow: 6px 6px 0 rgba(27,27,58,.85); transform: rotate(3deg); z-index: 2; }
+.sticky p { margin: 0; font-family: var(--hand); font-size: 22px; line-height: 1.2; }
+.sticky::before { content: ""; position: absolute; left: 66px; top: -11px; width: 88px; height: 22px; background: rgba(255,72,176,.6); transform: rotate(-6deg); }
+
+/* Waveform visual */
+.wave { background: var(--paper); border-bottom: 2px solid var(--ink); padding: 14px 14px 10px; display: grid; gap: 8px; }
+.wave svg { width: 100%; height: auto; display: block; }
+.pub h3 { font-size: 16.5px; }
+
+.lead-photo { margin: 10px 0 4px; display: grid; gap: 4px; }
+.lead-photo img { width: 100%; height: auto; display: block; border: 2px solid var(--ink); box-shadow: 4px 4px 0 var(--pink); background: var(--white); }
+.lead-photo figcaption { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+
+details.more { margin-top: 8px; border-top: 2px dashed var(--ink); padding-top: 6px; }
+details.more summary { cursor: pointer; font-family: var(--mono); font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--blue-ink); list-style: none; display: inline-flex; align-items: center; gap: 6px; padding: 4px 0; }
+details.more summary::-webkit-details-marker { display: none; }
+details.more summary::before { content: "+"; display: inline-grid; place-items: center; width: 20px; height: 20px; border: 2px solid var(--ink); background: var(--yellow); color: var(--ink); font-size: 14px; line-height: 1; }
+details.more[open] summary::before { content: "\2212"; }
+details.more summary:focus-visible { outline: 3px solid var(--pink); outline-offset: 2px; }
+.lede { font-size: 16.5px; }
+
+/* On the Mic: lanyard badges */
+.mic-intro { margin-bottom: 4px; }
+.badges { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px 18px; padding: 18px 4px 6px; }
+.badge { position: relative; background: var(--white); border: 2px solid var(--ink); border-radius: 10px; box-shadow: 5px 5px 0 var(--ink); padding: 30px 14px 12px; display: grid; gap: 7px; align-content: start; }
+.badge::before { content: ""; position: absolute; top: -18px; left: 50%; width: 46px; height: 30px; transform: translateX(-50%); background: var(--strap, var(--blue)); border: 2px solid var(--ink); border-bottom: 0; border-radius: 6px 6px 0 0; }
+.badge::after { content: ""; position: absolute; top: 9px; left: 50%; width: 34px; height: 8px; transform: translateX(-50%); background: var(--paper); border: 2px solid var(--ink); border-radius: 4px; }
+.badge .role { justify-self: start; font-family: var(--display); font-weight: 400; font-size: 25px; line-height: 1; text-transform: uppercase; letter-spacing: .01em; background: var(--yellow); color: var(--ink); border: 2px solid var(--ink); padding: 6px 9px 4px; transform: rotate(-1.5deg); max-width: 100%; overflow-wrap: anywhere; }
+.badge:nth-child(3n+2) .role { background: var(--pink); }
+.badge:nth-child(3n) .role { background: var(--blue); color: var(--white); }
+.badge h3 { font-size: 16.5px; line-height: 1.25; }
+.badge p { font-size: 14px; line-height: 1.45; margin: 0; }
+.badge .prize { font-family: var(--mono); font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--pink-ink); }
+.badge-foot { display: flex; justify-content: space-between; align-items: flex-end; gap: 10px; margin-top: 4px; }
+.badge-foot .meta { margin: 0; font-size: 12px; }
+.mini-stamp { flex: none; width: 66px; height: 66px; border-radius: 50%; border: 3px double currentColor; color: var(--blue-ink); display: grid; place-items: center; text-align: center; font-family: var(--display); font-size: 10px; line-height: 1.1; text-transform: uppercase; transform: rotate(-12deg); padding: 4px; }
+.badge:nth-child(even) .mini-stamp { color: var(--pink-ink); transform: rotate(10deg); }
+@media (max-width: 560px) { .badges { grid-template-columns: minmax(0, 1fr); } }
+
+.link-btn { margin-top: 4px; padding: 0; border: 0; background: none; cursor: pointer; font-family: var(--mono); font-size: 12.5px; font-weight: 700; color: var(--blue-ink); text-decoration: underline; text-underline-offset: 3px; }
+.link-btn:hover { color: var(--pink-ink); }
+
+/* Slide gallery */
+.gallery { border-bottom: 2px solid var(--ink); background: var(--paper); padding: 12px; display: grid; gap: 10px; }
+.g-main { margin: 0; display: grid; gap: 6px; }
+.g-main img { width: 100%; height: auto; display: block; border: 2px solid var(--ink); background: var(--white); }
+.g-main figcaption { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+.g-thumbs { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 6px; }
+.g-thumbs button { padding: 0; border: 2px solid var(--ink); background: var(--white); cursor: pointer; opacity: .7; }
+.g-thumbs button:hover, .g-thumbs button[aria-pressed="true"] { opacity: 1; box-shadow: 3px 3px 0 var(--pink); }
+.g-thumbs img { width: 100%; height: auto; display: block; }
+@media (max-width: 520px) { .g-thumbs { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+/* Magazine feature */
+.mag { grid-template-columns: 150px minmax(0, 1fr); gap: 18px; align-items: start; }
+.mag-cover { display: block; transform: rotate(-2.5deg); border: 2px solid var(--ink); box-shadow: 5px 5px 0 var(--pink); }
+.mag-cover img { display: block; width: 100%; height: auto; }
+.mag-cover:hover { transform: rotate(0deg); }
+.mag-body { display: grid; gap: 8px; min-width: 0; }
+.findings { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.findings div { border: 2px solid var(--ink); background: var(--pink); padding: 8px 10px; display: grid; gap: 2px; }
+.findings div:nth-child(2) { background: var(--yellow); }
+.findings div:nth-child(3) { background: var(--white); }
+.findings b { font-family: var(--display); font-weight: 400; font-size: 22px; line-height: 1; }
+.findings small { font-size: 12.5px; line-height: 1.3; }
+@media (max-width: 560px) { .mag { grid-template-columns: minmax(0, 1fr); } .mag-cover { width: 160px; } .findings { grid-template-columns: minmax(0, 1fr); } }
+
+/* Filter */
+body[data-lane="code"] [data-lane="comm"], body[data-lane="comm"] [data-lane="code"] { display: none; }
+.emptymsg { display: none; color: var(--muted); }
+.icon.dim { opacity: .28; }
+.lane-banner { position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%); max-width: calc(100vw - 32px); z-index: 9999; margin: 0; background: var(--ink); color: var(--white); font-family: var(--mono); font-size: 12.5px; font-weight: 700; padding: 8px 10px 8px 12px; border: 2px solid var(--yellow); box-shadow: 4px 4px 0 var(--pink); display: flex; align-items: center; gap: 10px; }
+.lane-banner[hidden] { display: none; }
+.lane-banner button { font: inherit; background: var(--yellow); color: var(--ink); border: 2px solid var(--ink); padding: 2px 8px; cursor: pointer; }
+.win.empty .emptymsg { display: block; }
+body.scroll .win.empty { display: none; }
+.tip-phone { display: none; }
+
+/* Scroll view (and phones) */
+body.scroll .icons, body.scroll .sticky, body.scroll .dots, body.scroll .close { display: none; }
+body.scroll .desktop { display: flex; flex-direction: column; gap: 28px; align-items: center; padding: calc(76px + env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) 60px max(16px, env(safe-area-inset-left, 0px)); }
+body.scroll .win { display: block; position: relative; left: auto !important; top: auto !important; width: min(780px, 100%); max-width: 100%; z-index: auto !important; }
+body.scroll .titlebar { cursor: default; }
+body.scroll .content { max-height: none; overflow: visible; }
+body.scroll .win.empty { display: none; }
+
+@media (max-width: 820px) {
+  .menubar nav, .view-toggle { display: none; }
+  .logo { margin-right: auto; }
+  .filter { margin-left: 0; }
+  .tip-desk { display: none; }
+  .tip-phone { display: block; }
+}
+@media (max-width: 400px) { .filter span { display: none; } }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+/* ===== Home screen: collage, dock, clock ===== */
+.widgets-wrap { position: fixed; inset: 46px 0 104px 0; z-index: 1; display: grid; place-items: center; padding: 14px 24px; pointer-events: none; }
+.widgets { pointer-events: auto; display: grid; width: min(1000px, 100%); grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: repeat(3, clamp(140px, 21vh, 200px)); gap: 18px;
+  grid-template-areas: "hero hero code code" "hero hero mic awards" "now research lead lead"; }
+.widget { position: relative; overflow: hidden; text-align: left; cursor: pointer; border: 3px solid var(--ink); border-radius: 20px; background: var(--wbg, var(--white)); color: var(--wfg, var(--ink)); box-shadow: 6px 6px 0 var(--wsh, var(--ink)); padding: clamp(10px, 1.6vh, 16px) 18px; transform: rotate(var(--r, 0deg)); transition: transform .16s ease, box-shadow .16s ease; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.widget:hover, .widget:focus-visible { transform: rotate(0deg) translate(-3px, -3px); box-shadow: 10px 10px 0 var(--wsh, var(--ink)); z-index: 2; }
+.w-label { font-family: var(--mono); font-size: 11.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 1; }
+.w-label::after { content: "\2197"; font-size: 15px; }
+.w-big { font-family: var(--display); font-weight: 400; line-height: .95; position: relative; z-index: 1; }
+.w-small { font-family: var(--mono); font-size: 12px; font-weight: 700; position: relative; z-index: 1; }
+
+.w-hero { grid-area: hero; --wbg: var(--pink); --wsh: var(--blue); --r: -1deg; flex-direction: row; gap: 18px; align-items: stretch; padding: 20px; }
+.w-hero .pic { flex: 0 0 38%; border: 3px solid var(--ink); border-radius: 12px; background-color: var(--blue); background-image: radial-gradient(var(--paper) 30%, transparent 32%); background-size: 9px 9px; display: grid; place-items: center; overflow: hidden; transform: rotate(-3deg); box-shadow: 5px 5px 0 var(--ink); }
+.w-hero .pic img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.15); mix-blend-mode: multiply; }
+.w-hero .pic span { font-family: var(--hand); font-size: 22px; background: var(--yellow); border: 2px solid var(--ink); padding: 2px 10px; transform: rotate(-6deg); }
+.w-hero .txt { flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: space-between; gap: 10px; }
+.w-hero .name { font-family: var(--display); font-size: clamp(20px, 2.15vw, 33px); line-height: .95; text-transform: uppercase; }
+.w-hero .name span { display: block; }
+.w-hero .hand { font-family: var(--hand); font-size: clamp(20px, 2vw, 26px); line-height: 1; background: var(--yellow); border: 2px solid var(--ink); padding: 4px 10px 2px; align-self: flex-start; transform: rotate(-3deg); }
+.w-hero .w-small { background: var(--ink); color: var(--paper); align-self: flex-start; padding: 4px 8px; }
+.w-hero .go { font-family: var(--mono); font-size: 13px; font-weight: 700; background: var(--white); border: 2px solid var(--ink); padding: 6px 10px; align-self: flex-start; box-shadow: 3px 3px 0 var(--ink); }
+
+.w-code { grid-area: code; --wbg: var(--ink); --wfg: var(--paper); --wsh: var(--pink); --r: .8deg; }
+.w-code .stickers { position: absolute; inset: 40px 12px 12px 12px; }
+.w-code .stickers b { position: absolute; font-family: var(--mono); font-size: 11.5px; font-weight: 700; border: 2px solid var(--ink); padding: 4px 9px; border-radius: 999px; color: var(--ink); transform: rotate(var(--t, 0deg)); }
+.w-code .w-small { position: absolute; right: 16px; bottom: 12px; color: var(--yellow); }
+
+.w-mic { grid-area: mic; --wbg: var(--yellow); --wsh: var(--pink); --r: 1.5deg; }
+.w-mic .role { font-family: var(--display); font-size: clamp(15px, 1.5vw, 20px); background: var(--pink); border: 2px solid var(--ink); padding: 4px 8px 2px; align-self: flex-start; transform: rotate(-3deg); margin-top: 6px; }
+.w-mic .w-big { font-size: clamp(28px, 3.2vw, 44px); margin-top: auto; }
+
+.w-awards { grid-area: awards; --wbg: var(--white); --wsh: var(--yellow); --r: -1.5deg; align-items: center; }
+.w-awards .w-label { align-self: stretch; }
+.w-awards .disc { margin: auto; width: clamp(72px, 9vh, 96px); aspect-ratio: 1; border-radius: 50%; border: 3px solid var(--ink); background: var(--yellow); box-shadow: 0 0 0 7px var(--pink), 0 0 0 10px var(--ink); display: grid; place-content: center; text-align: center; }
+.w-awards .disc b { font-family: var(--display); font-size: clamp(30px, 4vh, 40px); line-height: .9; }
+.w-awards .disc small { font-family: var(--mono); font-size: 9.5px; font-weight: 700; text-transform: uppercase; }
+
+.w-now { grid-area: now; --wbg: var(--blue); --wfg: var(--white); --wsh: var(--ink); --r: 1deg; }
+.w-now .w-big { font-size: clamp(22px, 2.2vw, 28px); margin-top: auto; }
+.w-now .w-small { color: var(--white); }
+.w-now .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: var(--yellow); margin-right: 6px; box-shadow: 0 0 0 3px rgba(255,232,0,.35); }
+
+.w-research { grid-area: research; --wbg: var(--paper); --wsh: var(--blue); --r: -1deg; }
+.w-research img { position: absolute; right: -14px; top: 34px; width: 44%; border: 2px solid var(--ink); transform: rotate(8deg); box-shadow: 4px 4px 0 var(--ink); }
+.w-research .w-big { font-size: clamp(40px, 4.4vw, 58px); margin-top: auto; }
+.w-research .w-small { background: var(--paper); align-self: flex-start; padding-right: 6px; }
+
+.w-lead { grid-area: lead; --wbg: var(--white); --wsh: var(--pink); --r: .6deg; padding: 0; }
+.w-lead img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.w-lead .w-label { position: absolute; left: 12px; right: 12px; top: 12px; background: var(--ink); color: var(--paper); padding: 5px 9px; border-radius: 6px; }
+.w-lead .w-small { position: absolute; left: 12px; bottom: 12px; background: var(--yellow); border: 2px solid var(--ink); padding: 4px 8px; }
+
+/* Dock (the folder icons) */
+.icons { position: fixed; left: 50%; top: auto; bottom: 14px; transform: translateX(-50%); display: flex; gap: 6px; align-items: flex-end; padding: 10px 14px 6px; background: var(--ink); border: 3px solid var(--ink); border-radius: 18px; box-shadow: 6px 6px 0 var(--pink); z-index: 4500; grid-template-columns: none; max-width: calc(100vw - 24px); }
+.icons .icon { padding: 4px 6px 2px; transition: transform .15s ease; }
+.icons .icon:hover, .icons .icon:focus-visible { transform: translateY(-8px); }
+.icons .folder { width: 46px; height: 34px; }
+.icons .folder::before { width: 20px; height: 7px; top: -7px; }
+.icons .file { width: 34px; height: 44px; }
+.icons .file::after { top: 10px; height: 16px; left: 6px; right: 6px; }
+.icons .icon span { background: transparent; color: var(--paper); font-size: 10.5px; padding: 0; }
+
+.clock { font-family: var(--mono); font-size: 12.5px; color: var(--paper); margin-left: 14px; white-space: nowrap; }
+
+body.scroll .widgets-wrap { display: none; }
+@media (max-width: 1100px) { .clock { display: none; } }
+@media (max-height: 780px) { .w-mic .role { display: none; } }
+@media (max-height: 700px) { .widgets { grid-template-rows: repeat(3, 128px); gap: 12px; } .w-hero .pic { display: none; } }
+@media (prefers-reduced-motion: reduce) { .widget:hover, .widget:focus-visible { transform: rotate(var(--r, 0deg)); } }
+</style>
+</head>
+<body>
+<a class="skip" href="#win-about">Skip to content</a>
+
+<header class="menubar">
+  <button type="button" class="logo" id="clearDesk" aria-label="Kiffy OS: close all windows" title="Close all windows">Kiffy OS</button>
+  <span class="sr-only">Kifekachukwu Nwosu's portfolio</span>
+  <nav aria-label="Open a window">
+    <button type="button" data-open="win-about">About</button>
+    <button type="button" data-open="win-code">Code</button>
+    <button type="button" data-open="win-research">Research</button>
+    <button type="button" data-open="win-leadership">Leadership</button>
+    <button type="button" data-open="win-mic">On the Mic</button>
+    <button type="button" data-open="win-contact">Contact</button>
+  </nav>
+  <div class="filter" role="group" aria-label="Show">
+    <span>Show:</span>
+    <button type="button" data-lane-btn="all" aria-pressed="true">All</button>
+    <button type="button" data-lane-btn="code" aria-pressed="false">Code</button>
+    <button type="button" data-lane-btn="comm" aria-pressed="false">Community</button>
+  </div>
+  <p class="lane-banner" id="laneBanner" aria-live="polite" hidden></p>
+  <span class="clock" id="clock" aria-hidden="true"></span>
+  <button type="button" class="view-toggle" id="viewToggle" aria-pressed="false">Scroll view</button>
+</header>
+
+<main class="desktop" id="desktop">
+
+
+
+  <div class="widgets-wrap">
+    <div class="widgets" aria-label="Shortcuts">
+      <button type="button" class="widget w-hero" data-open="win-about" aria-label="Open About me">
+        <span class="pic"><span>hi!</span></span>
+        <span class="txt">
+          <span class="w-label">About me</span>
+          <span class="name"><span>Kifekachukwu</span><span>Nwosu</span></span>
+          <span class="hand">code + community</span>
+          <span class="w-small">CS + WGSS · RIT '27</span>
+          <span class="go">Meet me →</span>
+        </span>
+      </button>
+      <button type="button" class="widget w-code" data-open="win-code" aria-label="Open Code">
+        <span class="w-label">Code</span>
+        <span class="stickers" aria-hidden="true">
+          <b style="left: 2%; top: 8%; background: var(--yellow); --t: -8deg;">python</b>
+          <b style="left: 26%; top: 2%; background: var(--pink); --t: 6deg;">java</b>
+          <b style="left: 46%; top: 16%; background: var(--blue); color: var(--white); --t: -5deg;">pytorch</b>
+          <b style="left: 72%; top: 4%; background: var(--white); --t: 9deg;">AI eval</b>
+          <b style="left: 8%; top: 52%; background: var(--white); --t: 5deg;">angular</b>
+          <b style="left: 34%; top: 46%; background: var(--yellow); --t: -10deg;">spring boot</b>
+          <b style="left: 62%; top: 48%; background: var(--pink); --t: 4deg;">SQL</b>
+        </span>
+        <span class="w-small">3 projects · 15 tools</span>
+      </button>
+      <button type="button" class="widget w-mic" data-open="win-mic" aria-label="Open On the Mic">
+        <span class="w-label">On the Mic</span>
+        <span class="role">PRESENTER</span>
+        <span class="w-big">10</span>
+        <span class="w-small">talks, panels + events</span>
+      </button>
+      <button type="button" class="widget w-awards" data-open="win-awards" aria-label="Open Awards">
+        <span class="w-label">Awards</span>
+        <span class="disc"><b>7</b><small>awards</small></span>
+      </button>
+      <button type="button" class="widget w-now" data-open="win-mic" aria-label="Now: Cape Town. Open On the Mic">
+        <span class="w-label">Now</span>
+        <span class="w-small"><span class="dot"></span><span id="ctTime">Cape Town</span></span>
+        <span class="w-big">Cape Town, ZA</span>
+        <span class="w-small" style="color: var(--white);">court support @ Mosaic</span>
+      </button>
+      <button type="button" class="widget w-research" data-open="win-research" aria-label="Open Research">
+        <span class="w-label">Research</span>
+        <img src="assets/projects/pink-cover.jpg" alt="" width="612" height="792">
+        <span class="w-big">4</span>
+        <span class="w-small">papers · 29 citations</span>
+      </button>
+      <button type="button" class="widget w-lead" data-open="win-leadership" aria-label="Open Leadership">
+        <img src="assets/photos/leadership/oas-collage.jpg" alt="" width="1400" height="670">
+        <span class="w-label">Leadership</span>
+        <span class="w-small">OAS President · ALANA VP · $45K budget</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="icons" aria-label="Dock">
+    <button type="button" class="icon" data-open="win-about"><div class="file" style="--shadow: var(--pink)"></div><span>about_me</span></button>
+    <button type="button" class="icon" data-open="win-code"><div class="folder" style="background: var(--blue); --shadow: var(--pink)"></div><span>Code</span></button>
+    <button type="button" class="icon" data-open="win-research"><div class="folder" style="background: var(--pink); --shadow: var(--blue)"></div><span>Research</span></button>
+    <button type="button" class="icon" data-open="win-leadership"><div class="folder" style="background: var(--blue); --shadow: var(--yellow)"></div><span>Leadership</span></button>
+    <button type="button" class="icon" data-open="win-mic"><div class="folder" style="background: var(--pink); --shadow: var(--yellow)"></div><span>On the Mic</span></button>
+    <button type="button" class="icon" data-open="win-awards"><div class="folder" style="background: var(--yellow)"></div><span>Awards</span></button>
+    <button type="button" class="icon" data-open="win-resumes"><div class="file" style="--shadow: var(--blue)"></div><span>Résumés</span></button>
+    <button type="button" class="icon" data-open="win-contact"><div class="file" style="--shadow: var(--yellow)"></div><span>Contact</span></button>
+  </div>
+
+
+  <!-- ===================================================== ABOUT ===================================================== -->
+  <section class="win" id="win-about" style="--w: 600px; --bar: var(--pink); left: 240px; top: 76px;" aria-labelledby="t-about">
+    <div class="titlebar"><span class="dots" aria-hidden="true"><i></i><i></i></span><h2 id="t-about">about_me.zine</h2><button type="button" class="close" aria-label="Close about_me">×</button></div>
+    <div class="content">
+      <div class="zine">
+        <!-- EDIT: put your headshot at assets/photos/headshot.jpg, then replace the <span> below with:
+             <img src="assets/photos/headshot.jpg" alt="Kifekachukwu smiling"> -->
+        <div class="photo"><span>[EDIT: your photo]</span></div>
+        <div class="zine-text">
+          <h1 class="riso">CODE + COMMUNITY</h1>
+          <span class="strip dark">I build technology shaped by</span>
+          <span class="strip yel">the people it serves.</span>
+          <span class="sig">– Kifekachukwu Nwosu</span>
+        </div>
+      </div>
+      <p><b>Most people pick between code and community. I chose both.</b> I'm a computer science and women's, gender &amp; sexuality studies double major at RIT, graduating May 2027. I've shipped full-stack apps, first-authored machine learning research on audio deepfakes, researched women's lived experiences, and supported survivors of gender-based violence in Cape Town.</p>
+      <p>I believe neither field succeeds without the other: technology built without understanding people leaves them behind. I'm drawn to work where technology and ethics meet, and I bring that lens to every role, whether I'm writing code, doing research or working with communities.</p>
+      <div class="facts"><span>RIT '27</span><span>CS + WGSS</span><span data-lane="code">Software engineering</span><span data-lane="code">Computing research</span><span data-lane="comm">Gender studies research</span><span data-lane="comm">Survivor advocacy</span><span>McNair Scholar</span></div>
+      <div class="tiles">
+        <div class="tile" data-lane="code" style="background: var(--blue); color: var(--white)"><b>4</b><small>peer-reviewed papers (IEEE, AAAI, LSA), one as first author</small></div>
+        <div class="tile" data-lane="comm" style="background: var(--pink)"><b>600+</b><small>people reached through gender-based and intimate partner violence trainings I support</small></div>
+        <div class="tile" data-lane="both" style="background: var(--yellow)"><b>13K+</b><small>protest tweets studied with NLP to test how AI reads a social movement</small></div>
+        <div class="tile" data-lane="comm"><b>350+</b><small>girls reached through the Power Her Forward conference</small></div>
+        <div class="tile" data-lane="comm" style="background: var(--blue); color: var(--white)"><b>$45K</b><small>student government budget managed as ALANA VP</small></div>
+        <div class="tile" data-lane="both" style="background: var(--pink)"><b>7</b><small>awards and scholarships in 2025–26</small></div>
+      </div>
+      <p class="kicker tip-desk">Tip: open the folders on the left, drag windows around, or switch to Scroll view.</p>
+      <p class="kicker tip-phone">Tip: use Show at the top to see just code, just community work, or everything.</p>
+    </div>
+  </section>
+
+  <!-- ===================================================== CODE ===================================================== -->
+  <section class="win" id="win-code" style="--w: 640px; --bar: var(--blue); --bar-ink: var(--white); --shadow: var(--pink); left: 280px; top: 90px;" aria-labelledby="t-code">
+    <div class="titlebar"><span class="dots" aria-hidden="true"><i></i><i></i></span><h2 id="t-code">Code</h2><button type="button" class="close" aria-label="Close Code">×</button></div>
+    <div class="content">
+      <h4>My laptop (tap a sticker)</h4>
+      <p class="meta">Code, tools, and how I check that technology works for people (the ones with a heart).</p>
+      <!-- EDIT: each sticker's details live in the "skills" list near the bottom of this file -->
+      <div class="laptop" id="stickers">
+        <button type="button" class="sticker s1" data-skill="python">Python</button>
+        <button type="button" class="sticker s2" data-skill="java">Java</button>
+        <button type="button" class="sticker s3" data-skill="pytorch">PyTorch</button>
+        <button type="button" class="sticker s4" data-skill="hf">Hugging Face</button>
+        <button type="button" class="sticker s5" data-skill="angular">Angular</button>
+        <button type="button" class="sticker s2" data-skill="spring">Spring Boot + REST</button>
+        <button type="button" class="sticker s1" data-skill="sql">SQL</button>
+        <button type="button" class="sticker s3" data-skill="csharp">C#</button>
+        <button type="button" class="sticker s4" data-skill="pandas">Pandas + NumPy + Matplotlib</button>
+        <button type="button" class="sticker s4" data-skill="web">JavaScript + HTML/CSS</button>
+        <button type="button" class="sticker s1" data-skill="figma">Figma</button>
+        <button type="button" class="sticker s5" data-skill="c">C / C++</button>
+        <button type="button" class="sticker s2" data-skill="git">Git + GitHub</button>
+        <button type="button" class="sticker method" data-skill="aieval">AI evaluation + bias testing</button>
+        <button type="button" class="sticker method" data-skill="qual">Qualitative + user research</button>
+      </div>
+      <div class="base" aria-hidden="true"></div>
+      <div class="sticker-info" id="stickerInfo" aria-live="polite"><b>Pick a sticker</b> to see where I've used it.</div>
+
+      <h4>Projects</h4>
+      <article class="project entry" data-lane="both">
+        <div class="wave"><svg viewBox="0 -2 600 124" role="img" aria-label="Audio waveform with three segments tagged with expert-defined linguistic features"><line x1="0" y1="60" x2="600" y2="60" stroke="var(--ink)" stroke-opacity=".2"/><rect x="1.0" y="50.5" width="4.2" height="19.0" rx="2" fill="var(--blue)"/><rect x="7.2" y="44.8" width="4.2" height="30.3" rx="2" fill="var(--blue)"/><rect x="13.5" y="42.2" width="4.2" height="35.7" rx="2" fill="var(--blue)"/><rect x="19.8" y="40.3" width="4.2" height="39.4" rx="2" fill="var(--blue)"/><rect x="26.0" y="37.4" width="4.2" height="45.2" rx="2" fill="var(--blue)"/><rect x="32.2" y="33.9" width="4.2" height="52.3" rx="2" fill="var(--blue)"/><rect x="38.5" y="31.9" width="4.2" height="56.3" rx="2" fill="var(--blue)"/><rect x="44.8" y="33.9" width="4.2" height="52.1" rx="2" fill="var(--blue)"/><rect x="51.0" y="40.7" width="4.2" height="38.6" rx="2" fill="var(--blue)"/><rect x="57.2" y="50.1" width="4.2" height="19.8" rx="2" fill="var(--blue)"/><rect x="63.5" y="51.7" width="4.2" height="16.6" rx="2" fill="var(--blue)"/><rect x="69.8" y="47.7" width="4.2" height="24.6" rx="2" fill="var(--blue)"/><rect x="76.0" y="48.4" width="4.2" height="23.2" rx="2" fill="var(--blue)"/><rect x="82.2" y="51.9" width="4.2" height="16.2" rx="2" fill="var(--blue)"/><rect x="88.5" y="54.7" width="4.2" height="10.6" rx="2" fill="var(--pink)"/><rect x="94.8" y="52.7" width="4.2" height="14.5" rx="2" fill="var(--pink)"/><rect x="101.0" y="51.4" width="4.2" height="17.2" rx="2" fill="var(--pink)"/><rect x="107.2" y="48.5" width="4.2" height="23.0" rx="2" fill="var(--pink)"/><rect x="113.5" y="42.6" width="4.2" height="34.8" rx="2" fill="var(--pink)"/><rect x="119.8" y="34.7" width="4.2" height="50.6" rx="2" fill="var(--pink)"/><rect x="126.0" y="27.9" width="4.2" height="64.3" rx="2" fill="var(--pink)"/><rect x="132.2" y="25.4" width="4.2" height="69.1" rx="2" fill="var(--pink)"/><rect x="138.5" y="28.8" width="4.2" height="62.4" rx="2" fill="var(--pink)"/><rect x="144.8" y="36.5" width="4.2" height="47.1" rx="2" fill="var(--pink)"/><rect x="151.0" y="45.1" width="4.2" height="29.9" rx="2" fill="var(--blue)"/><rect x="157.2" y="51.8" width="4.2" height="16.4" rx="2" fill="var(--blue)"/><rect x="163.5" y="54.0" width="4.2" height="11.9" rx="2" fill="var(--blue)"/><rect x="169.8" y="50.8" width="4.2" height="18.4" rx="2" fill="var(--blue)"/><rect x="176.0" y="46.5" width="4.2" height="27.0" rx="2" fill="var(--blue)"/><rect x="182.2" y="40.6" width="4.2" height="38.8" rx="2" fill="var(--blue)"/><rect x="188.5" y="35.0" width="4.2" height="49.9" rx="2" fill="var(--blue)"/><rect x="194.8" y="32.8" width="4.2" height="54.5" rx="2" fill="var(--blue)"/><rect x="201.0" y="35.8" width="4.2" height="48.5" rx="2" fill="var(--blue)"/><rect x="207.2" y="43.3" width="4.2" height="33.5" rx="2" fill="var(--blue)"/><rect x="213.5" y="52.1" width="4.2" height="15.8" rx="2" fill="var(--blue)"/><rect x="219.8" y="51.3" width="4.2" height="17.4" rx="2" fill="var(--blue)"/><rect x="226.0" y="48.9" width="4.2" height="22.2" rx="2" fill="var(--blue)"/><rect x="232.2" y="49.9" width="4.2" height="20.3" rx="2" fill="var(--blue)"/><rect x="238.5" y="51.7" width="4.2" height="16.5" rx="2" fill="var(--blue)"/><rect x="244.8" y="52.6" width="4.2" height="14.8" rx="2" fill="var(--blue)"/><rect x="251.0" y="52.6" width="4.2" height="14.7" rx="2" fill="var(--blue)"/><rect x="257.2" y="53.9" width="4.2" height="12.1" rx="2" fill="var(--blue)"/><rect x="263.5" y="51.4" width="4.2" height="17.3" rx="2" fill="var(--blue)"/><rect x="269.8" y="43.0" width="4.2" height="34.0" rx="2" fill="var(--blue)"/><rect x="276.0" y="33.4" width="4.2" height="53.1" rx="2" fill="var(--pink)"/><rect x="282.2" y="26.3" width="4.2" height="67.4" rx="2" fill="var(--pink)"/><rect x="288.5" y="24.4" width="4.2" height="71.2" rx="2" fill="var(--pink)"/><rect x="294.8" y="27.7" width="4.2" height="64.5" rx="2" fill="var(--pink)"/><rect x="301.0" y="33.8" width="4.2" height="52.3" rx="2" fill="var(--pink)"/><rect x="307.2" y="39.7" width="4.2" height="40.6" rx="2" fill="var(--pink)"/><rect x="313.5" y="43.8" width="4.2" height="32.4" rx="2" fill="var(--pink)"/><rect x="319.8" y="47.0" width="4.2" height="26.1" rx="2" fill="var(--pink)"/><rect x="326.0" y="51.3" width="4.2" height="17.3" rx="2" fill="var(--blue)"/><rect x="332.2" y="51.9" width="4.2" height="16.3" rx="2" fill="var(--blue)"/><rect x="338.5" y="43.7" width="4.2" height="32.5" rx="2" fill="var(--blue)"/><rect x="344.8" y="37.3" width="4.2" height="45.3" rx="2" fill="var(--blue)"/><rect x="351.0" y="35.6" width="4.2" height="48.7" rx="2" fill="var(--blue)"/><rect x="357.2" y="39.5" width="4.2" height="41.0" rx="2" fill="var(--blue)"/><rect x="363.5" y="46.9" width="4.2" height="26.1" rx="2" fill="var(--blue)"/><rect x="369.8" y="54.3" width="4.2" height="11.4" rx="2" fill="var(--blue)"/><rect x="376.0" y="51.2" width="4.2" height="17.7" rx="2" fill="var(--blue)"/><rect x="382.2" y="49.9" width="4.2" height="20.2" rx="2" fill="var(--blue)"/><rect x="388.5" y="50.1" width="4.2" height="19.8" rx="2" fill="var(--blue)"/><rect x="394.8" y="49.6" width="4.2" height="20.8" rx="2" fill="var(--blue)"/><rect x="401.0" y="47.9" width="4.2" height="24.2" rx="2" fill="var(--blue)"/><rect x="407.2" y="46.7" width="4.2" height="26.6" rx="2" fill="var(--blue)"/><rect x="413.5" y="48.7" width="4.2" height="22.6" rx="2" fill="var(--blue)"/><rect x="419.8" y="54.7" width="4.2" height="10.7" rx="2" fill="var(--blue)"/><rect x="426.0" y="44.6" width="4.2" height="30.9" rx="2" fill="var(--blue)"/><rect x="432.2" y="34.5" width="4.2" height="51.1" rx="2" fill="var(--blue)"/><rect x="438.5" y="27.9" width="4.2" height="64.2" rx="2" fill="var(--pink)"/><rect x="444.8" y="26.4" width="4.2" height="67.2" rx="2" fill="var(--pink)"/><rect x="451.0" y="28.8" width="4.2" height="62.4" rx="2" fill="var(--pink)"/><rect x="457.2" y="32.3" width="4.2" height="55.4" rx="2" fill="var(--pink)"/><rect x="463.5" y="34.8" width="4.2" height="50.3" rx="2" fill="var(--pink)"/><rect x="469.8" y="36.5" width="4.2" height="46.9" rx="2" fill="var(--pink)"/><rect x="476.0" y="39.4" width="4.2" height="41.3" rx="2" fill="var(--pink)"/><rect x="482.2" y="45.2" width="4.2" height="29.5" rx="2" fill="var(--pink)"/><rect x="488.5" y="54.1" width="4.2" height="11.9" rx="2" fill="var(--pink)"/><rect x="494.8" y="46.7" width="4.2" height="26.6" rx="2" fill="var(--pink)"/><rect x="501.0" y="40.6" width="4.2" height="38.8" rx="2" fill="var(--pink)"/><rect x="507.2" y="39.9" width="4.2" height="40.1" rx="2" fill="var(--pink)"/><rect x="513.5" y="44.2" width="4.2" height="31.5" rx="2" fill="var(--blue)"/><rect x="519.8" y="50.6" width="4.2" height="18.8" rx="2" fill="var(--blue)"/><rect x="526.0" y="54.2" width="4.2" height="11.7" rx="2" fill="var(--blue)"/><rect x="532.2" y="51.6" width="4.2" height="16.9" rx="2" fill="var(--blue)"/><rect x="538.5" y="50.6" width="4.2" height="18.8" rx="2" fill="var(--blue)"/><rect x="544.8" y="49.1" width="4.2" height="21.8" rx="2" fill="var(--blue)"/><rect x="551.0" y="45.9" width="4.2" height="28.3" rx="2" fill="var(--blue)"/><rect x="557.2" y="42.0" width="4.2" height="36.0" rx="2" fill="var(--blue)"/><rect x="563.5" y="40.4" width="4.2" height="39.3" rx="2" fill="var(--blue)"/><rect x="569.8" y="43.5" width="4.2" height="33.0" rx="2" fill="var(--blue)"/><rect x="576.0" y="51.7" width="4.2" height="16.7" rx="2" fill="var(--blue)"/><rect x="582.2" y="47.6" width="4.2" height="24.8" rx="2" fill="var(--blue)"/><rect x="588.5" y="38.1" width="4.2" height="43.7" rx="2" fill="var(--blue)"/><rect x="594.8" y="32.6" width="4.2" height="54.8" rx="2" fill="var(--blue)"/><rect x="87.5" y="8" width="62.5" height="104" fill="none" stroke="var(--ink)" stroke-width="2" stroke-dasharray="5 4"/><rect x="87.5" y="0" width="46" height="18" fill="var(--yellow)" stroke="var(--ink)" stroke-width="2"/><text x="94.5" y="13" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="700" fill="var(--ink)">EDLF</text><rect x="275.0" y="8" width="50.0" height="104" fill="none" stroke="var(--ink)" stroke-width="2" stroke-dasharray="5 4"/><rect x="275.0" y="0" width="46" height="18" fill="var(--yellow)" stroke="var(--ink)" stroke-width="2"/><text x="282.0" y="13" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="700" fill="var(--ink)">EDLF</text><rect x="437.5" y="8" width="75.0" height="104" fill="none" stroke="var(--ink)" stroke-width="2" stroke-dasharray="5 4"/><rect x="437.5" y="0" width="46" height="18" fill="var(--yellow)" stroke="var(--ink)" stroke-width="2"/><text x="444.5" y="13" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="700" fill="var(--ink)">EDLF</text></svg><p class="meta">Tagging audio clips with expert-defined linguistic features (EDLFs) so a model can tell real speech from fake</p></div>
+        <div class="body">
+          <div class="tags"><span class="tag both">BOTH</span><span class="tag code">ML</span><span class="tag both">FIRST AUTHOR</span></div>
+          <h3>Auto Annotation for Audio Deepfake Discernment</h3>
+          <p class="meta">Python · PyTorch · Pandas · NumPy · MDATA Lab, UMBC · 2023</p>
+          <p>Deepfake audio is getting harder to catch by ear and by machine. I led the work on tooling that automatically annotates audio clips with expert-defined linguistic features, the cues sociolinguists use to spot spoofed speech, so detection models become both more accurate and easier to explain.</p>
+          <ul>
+            <li>Built the auto-annotation pipeline that tags clips with linguistic features automatically</li>
+            <li>Fed those features into deepfake detection to improve accuracy and interpretability</li>
+            <li>Published as first author: <i>Auto Annotation of Linguistic Features for Audio Deepfake Discernment</i>, Proceedings of the AAAI Symposium Series, 2023</li>
+          </ul>
+          <div class="links"><a class="btn" href="https://www.researchgate.net/publication/377601934_Auto_Annotation_of_Linguistic_Features_for_Audio_Deepfake_Discernment" target="_blank" rel="noopener">Read the paper</a><button type="button" class="btn ghost" data-open="win-research">See all publications</button></div>
+        </div>
+      </article>
+      <article class="project entry" data-lane="both">
+        <div class="gallery" id="hsGallery">
+          <figure class="g-main">
+            <img id="hsMain" src="assets/projects/heartstrings/cover.jpg" alt="HeartStrings final presentation title slide with illustrated musicians" width="1200" height="675">
+            <figcaption id="hsCap">Final presentation</figcaption>
+          </figure>
+          <div class="g-thumbs" role="group" aria-label="HeartStrings slides">
+            <button type="button" aria-pressed="true" data-src="assets/projects/heartstrings/cover.jpg" data-cap="Final presentation" data-alt="HeartStrings final presentation title slide with illustrated musicians"><img src="assets/projects/heartstrings/cover.jpg" alt="" width="1200" height="675"></button>
+            <button type="button" aria-pressed="false" data-src="assets/projects/heartstrings/architecture.jpg" data-cap="How a click travels: UI, service, controller, model and persistence tiers" data-alt="Diagram of the request flow from a UI component through services and a controller to the model and persistence layers"><img src="assets/projects/heartstrings/architecture.jpg" alt="" width="1200" height="675"></button>
+            <button type="button" aria-pressed="false" data-src="assets/projects/heartstrings/inventory-design.jpg" data-cap="Designing the cupboard and funding basket inventory" data-alt="Venn diagram comparing the funding basket and cupboard, beside the initial DAO design"><img src="assets/projects/heartstrings/inventory-design.jpg" alt="" width="1200" height="675"></button>
+            <button type="button" aria-pressed="false" data-src="assets/projects/heartstrings/usability-buttons.jpg" data-cap="Usability fixes: button sizes and form layout" data-alt="Screenshots of the app's need details, edit form and funding basket checkout with improved buttons"><img src="assets/projects/heartstrings/usability-buttons.jpg" alt="" width="1200" height="675"></button>
+            <button type="button" aria-pressed="false" data-src="assets/projects/heartstrings/helper-dashboard.jpg" data-cap="Making the helper dashboard and funding basket easier to reach" data-alt="Before and after screenshots of the helper dashboard navigation"><img src="assets/projects/heartstrings/helper-dashboard.jpg" alt="" width="1200" height="675"></button>
+            <button type="button" aria-pressed="false" data-src="assets/projects/heartstrings/code-analysis.jpg" data-cap="SonarQube static analysis of the API and web app" data-alt="SonarQube results for the UFund API and HeartStrings app with notes on reliability and maintainability issues"><img src="assets/projects/heartstrings/code-analysis.jpg" alt="" width="1200" height="675"></button>
+          </div>
+        </div>
+        <div class="body">
+          <div class="tags"><span class="tag both">BOTH</span><span class="tag code">FULL-STACK</span><span class="tag code">TEAM PROJECT</span></div>
+          <h3>HeartStrings</h3>
+          <p class="meta">Angular · Java · Spring Boot · REST API · JUnit · SonarQube · Introduction to Software Engineering</p>
+          <p>A web app that brings music to anyone who wants to learn it. Helpers donate time, old instruments or money to fill "needs" posted by a manager, add them to a funding basket and check out.</p>
+          <ul>
+            <li>Built in a team with an Angular front end and a Java Spring Boot REST API, organized into UI, model and persistence tiers</li>
+            <li>Designed a shared inventory model so the cupboard and each helper's funding basket reuse the same load, save and search logic</li>
+            <li>Went past the minimum product with a Performances feature for concerts</li>
+            <li>Ran SonarQube static analysis and caught a security risk (stack traces exposed in logs) and API routes that didn't bind correctly</li>
+            <li>Shipped usability fixes: larger buttons, clearer dashboard navigation, an easier-to-reach funding basket and better search</li>
+          </ul>
+          <p class="meta"><b>The original repository and demo are no longer available</b>, so this shows our final presentation.</p>
+          <div class="links"><a class="btn" href="assets/projects/heartstrings-presentation.pdf" target="_blank" rel="noopener">View the full presentation (PDF)</a></div>
+        </div>
+      </article>
+      <article class="project entry" data-lane="both">
+        <div class="gallery">
+          <figure class="g-main">
+            <img class="g-img" src="assets/projects/access/yffik-home.jpg" alt="Yffik homepage redesign with an open display settings panel offering standard, dark and high-contrast themes, text size up to 200%, and reading and motion toggles" width="1200" height="675">
+            <figcaption class="g-cap">Yffik: display settings built into the homepage</figcaption>
+          </figure>
+          <div class="g-thumbs" role="group" aria-label="Accessible gaming prototype screens">
+            <button type="button" aria-pressed="true" data-src="assets/projects/access/yffik-home.jpg" data-cap="Yffik: display settings built into the homepage" data-alt="Yffik homepage redesign with an open display settings panel offering standard, dark and high-contrast themes, text size up to 200%, and reading and motion toggles"><img src="assets/projects/access/yffik-home.jpg" alt="" width="1200" height="675"></button>
+            <button type="button" aria-pressed="false" data-src="assets/projects/access/barrier-notes.jpg" data-cap="Barrier → fix notes from our review of the real Nintendo US homepage" data-alt="Notes pairing each barrier on the real site with its fix, covering navigation, the hero carousel, link text and images, fine print, the footer, and features added for everyone"><img src="assets/projects/access/barrier-notes.jpg" alt="" width="1200" height="675"></button>
+            <button type="button" aria-pressed="false" data-src="assets/projects/access/yffik-tables.jpg" data-cap="Price lists as real tables, sales shown with icon + text, and a new Accessibility column" data-alt="Digital best sellers and new releases tables with rank, game, release date, price and accessibility columns"><img src="assets/projects/access/yffik-tables.jpg" alt="" width="1200" height="675"></button>
+            <button type="button" aria-pressed="false" data-src="assets/projects/access/fiker-hero.jpg" data-cap="Fiker: an always-visible display toolbar and a trailer with captions, audio description and transcript" data-alt="Dark-theme console hub with a display toolbar and a featured game trailer showing captions, audio description and a transcript"><img src="assets/projects/access/fiker-hero.jpg" alt="" width="1200" height="675"></button>
+            <button type="button" aria-pressed="false" data-src="assets/projects/access/fiker-filter.jpg" data-cap="Fiker: find games by the accessibility features you need" data-alt="Search page that filters games by screen-reader menus, high-contrast mode, scalable text, subtitles, haptic cues and one-handed play"><img src="assets/projects/access/fiker-filter.jpg" alt="" width="1200" height="675"></button>
+          </div>
+        </div>
+        <div class="body">
+          <div class="tags"><span class="tag both">BOTH</span><span class="tag code">UX + ACCESSIBILITY</span><span class="tag code">TEAM PROJECT</span></div>
+          <h3>Accessible gaming platforms: audit + Figma prototype</h3>
+          <p class="meta">Figma · WCAG 2 (POUR) · ADA · WAVE · Golisano College of Computing, RIT</p>
+          <p class="lede">Up to 30% of gamers have a disability, but before they can play anything they have to get through the storefront. We audited four of them and redesigned what was broken.</p>
+          <ul>
+            <li><b>Audit:</b> built a rubric from WCAG, the ADA and inclusive design, and tested Steam, itch.io, PlayStation Store and Nintendo eShop</li>
+            <li><b>Found:</b> no menu or search in headers, unlabeled carousels, endless "Learn more" links, and sale prices in tiny print</li>
+            <li><b>Designed:</b> two storefronts in Figma, <b>Yffik</b> (a rebuilt Nintendo homepage) and <b>Fiker</b> (a console hub that lets you filter games by accessibility features)</li>
+          </ul>
+          <details class="more">
+            <summary>Read more</summary>
+            <p><b>Who we designed for:</b> players with visual, motor and cognitive disabilities, using WCAG's POUR principles (Perceivable, Operable, Understandable, Robust) and the WAVE evaluation tool.</p>
+            <p><b>Built in for everyone:</b> standard, dark and high-contrast themes, text up to 200%, reduced motion, link underlines, captions, audio description and transcripts on trailers, 44px+ tap targets, and the Atkinson Hyperlegible font.</p>
+          </details>
+          <div class="links"><a class="btn" href="https://www.figma.com/design/uIvxmE8mBruav49QjPD8l3/Yffik---Fiker-%E2%80%94-Accessible-Console-Sites" target="_blank" rel="noopener">Open the Figma file</a></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===================================================== RESEARCH ===================================================== -->
+  <section class="win" id="win-research" style="--w: 620px; --bar: var(--pink); --shadow: var(--blue); left: 300px; top: 110px;" aria-labelledby="t-research">
+    <div class="titlebar"><span class="dots" aria-hidden="true"><i></i><i></i></span><h2 id="t-research">Research</h2><button type="button" class="close" aria-label="Close Research">×</button></div>
+    <div class="content">
+      <article class="entry" data-lane="both">
+        <div class="tags"><span class="tag both">BOTH</span><span class="tag code">NLP</span><span class="tag both">AI EVALUATION</span></div>
+        <h3>Can AI Read a Protest? Framing #EndSARS on Twitter</h3>
+        <p class="meta">CRA-DREU Fellow · Lab for Population Intelligence, RIT · Summer 2026 – present</p>
+        <p class="lede">Can an AI model tell how protesters framed Nigeria's 2020 #EndSARS movement? I hand-coded 500 tweets and tested a zero-shot model (BART-large-MNLI) against my labels.</p>
+        <div class="findings">
+          <div><b>κ 0.01–0.05</b><small>agreement between the model and human coding, close to chance</small></div>
+          <div><b>95% vs 16%</b><small>tweets the model called "prognostic," vs. what I found</small></div>
+          <div><b>0.40</b><small>the model's hidden cutoff for calling a frame present, not the usual 0.50</small></div>
+        </div>
+        <p><b>Takeaway:</b> the model labeled almost every tweet the same way and missed sarcasm and Pidgin. AI needs to be checked against human judgment before it's used to study social movements.</p>
+        <details class="more">
+          <summary>Read more</summary>
+          <p><b>Data:</b> a public dataset of 13,000+ tweets from the 24 hours after the Lekki toll gate shooting on October 20, 2020. I kept emojis, hashtags and Nigerian Pidgin intact so meaning wasn't lost.</p>
+          <p><b>Method:</b> I coded tweets for diagnostic, prognostic and motivational framing (Benford and Snow's collective action frames), then measured the model with precision, recall, F1 and Cohen's kappa.</p>
+          <p><b>Why accuracy lied:</b> with prognostic framing in only 16% of tweets, a model that never predicted it would still score 84%. The model even labeled a bare hashtag or a two-word aside like "Why na?" as a call to action.</p>
+          <p><b>Next:</b> test other models, add more human coders, and give models framing definitions and #EndSARS context.</p>
+          <p class="meta">Limitations: a single coder and Twitter-only data, which leaves out less digitally connected voices.</p>
+        </details>
+      </article>
+      <article class="entry" data-lane="comm">
+        <div class="tags"><span class="tag comm">COMMUNITY</span><span class="tag both">FIRST PRIZE</span><span class="tag both">FUNDED</span></div>
+        <h3>Religion as a Central Barrier to Queer &amp; Women's Liberation in Nigeria</h3>
+        <p class="meta">Research Assistant · College of Liberal Arts, RIT · August 2024 – May 2025 · First Prize, RIT WGSS Symposium, Spring 2026</p>
+        <p class="lede">What barriers shape queer experiences in Nigeria? Through legal analysis, interviews and short stories, I found that religion is the system underneath them all.</p>
+        <p><b>Takeaway:</b> religion shapes law, family and school, and frames queerness as sinful and "un-African," even though colonialism brought many of those beliefs. The work won first prize and funding to continue.</p>
+        <details class="more">
+          <summary>Read more</summary>
+          <p><b>How I studied it:</b> literature and legal analysis, interviews, and short story collections, with a focus on lived experiences.</p>
+          <p><b>What I found:</b> religion shapes what counts as moral and influences law, including the Same Sex Marriage Prohibition Act and Sharia law. Colonialism replaced many Indigenous belief systems with the religious ones that now define these norms. As a result, queer Nigerians navigate fear, secrecy and internal conflict.</p>
+          <p><b>What's next:</b> I'm building an archive of narratives from this research and exploring women's liberation in Nigeria further.</p>
+        </details>
+      </article>
+      <article class="mag entry" data-lane="comm">
+        <a class="mag-cover" href="assets/projects/the-pink-price-tag.pdf" target="_blank" rel="noopener"><img src="assets/projects/pink-cover.jpg" alt="Cover of The Pink Price Tag magazine: pink building against a blue sky, subtitled Why does the pink razor cost more?" width="612" height="792"></a>
+        <div class="mag-body">
+          <div class="tags"><span class="tag comm">ZINE</span><span class="tag both">AWARD</span><span class="tag comm">ORIGINAL SURVEY</span></div>
+          <h3>The Pink Price Tag</h3>
+          <p class="meta">15-page magazine · Editor-in-chief · December 2025 · Gender, Media, and Communication · Communication and Ethics Award, RIT 2026</p>
+          <p>Why does the pink razor cost more? I wrote, designed and edited a magazine that explains the pink tax, the hidden markup on products marketed to women, and backed it with a small survey of 22 RIT students.</p>
+          <div class="findings">
+            <div><b>18 / 22</b><small>notice gender-based price differences</small></div>
+            <div><b>13</b><small>buy the men's version to save money</small></div>
+            <div><b>0</b><small>opposed laws banning the pink tax</small></div>
+          </div>
+          <p class="meta">A small, informal class survey, not a representative sample, but it was a fun way to hear what students on my campus think.</p>
+          <details class="more">
+            <summary>Read more</summary>
+            <p>It covers real examples, a pink tax survival guide, gendered shrinkflation, and the laws in New York and California (AB 1287) and the federal Pink Tax Repeal Act. Sponsored by Her Campus RIT and Women of Excellence Supporting STEM.</p>
+          </details>
+          <div class="links"><a class="btn" href="assets/projects/the-pink-price-tag.pdf" target="_blank" rel="noopener">Read the magazine (PDF)</a></div>
+        </div>
+      </article>
+      <article class="entry" data-lane="both">
+        <div class="tags"><span class="tag both">BOTH</span><span class="tag code">ML</span><span class="tag comm">LINGUISTICS</span><span class="tag both">4 PAPERS</span></div>
+        <h3>Teaching People and Machines to Hear a Deepfake</h3>
+        <p class="meta">Machine Learning Research Engineer · MDATA Lab, UMBC · June 2023 – January 2025</p>
+        <p class="lede">Can the way humans actually speak help both people and AI spot fake audio? Our team of computer scientists and linguists used speech cues to train detectors and to train people.</p>
+        <div class="findings">
+          <div><b>264</b><small>students in our deepfake listening training</small></div>
+          <div><b>5 cues</b><small>pitch, breathing, pauses, consonant bursts and audio quality</small></div>
+          <div><b>4 papers</b><small>IEEE, AAAI, Language and Linguistics Compass, BAAL · 29 citations</small></div>
+        </div>
+        <p><b>Takeaway:</b> trained students caught 85% of the fakes they'd been unsure about, but got only about 20% of real voices right. Teaching people to doubt is easier than teaching them to judge well.</p>
+        <details class="more">
+          <summary>Read more</summary>
+          <p><b>For machines:</b> we used expert-defined linguistic features to augment training data for spoofed-audio detection, with datasets like ASVspoof, WaveFake and LJSpeech (IEEE ISI 2023). I led our AAAI paper on auto-annotating clips with these features, so labeling doesn't depend entirely on expert listeners, and presented it at the ATHAI symposium (2023) and ADSA '24.</p>
+          <p><b>For people:</b> we built a short listening training, piloted it with small groups, then tested it with 264 undergraduates across nine courses, using a control group and pre- and post-tests. I also helped create trainings for high school students (2023–24).</p>
+          <p><b>Why it matters to me:</b> this is where I learned that technical work gets better when you bring in people who study humans.</p>
+        </details>
+        <div class="links"><button type="button" class="btn ghost" data-open="win-code">See my first-author project</button></div>
+      </article>
+
+      <h2 class="pub-head"><span>Publications</span><small>4 papers · 29 citations</small></h2>
+      <article class="entry pub" data-lane="both">
+        <p class="kicker">First author · 3 citations</p>
+        <h3>Auto annotation of linguistic features for audio deepfake discernment</h3>
+        <p class="meta"><b>K. Nwosu</b>, C. Evered, Z. Khanjani, N. Bhalli, L. Davis, C. Mallinson, V. P. Janeja · Proceedings of the AAAI Symposium Series, 2(1), 242–244 · 2023 · <a href="https://www.researchgate.net/publication/377601934_Auto_Annotation_of_Linguistic_Features_for_Audio_Deepfake_Discernment" target="_blank" rel="noopener">Read on ResearchGate</a></p>
+      </article>
+      <article class="entry pub" data-lane="both">
+        <p class="kicker">Co-author · 17 citations</p>
+        <h3>Learning to listen and listening to learn: Spoofed audio detection through linguistic data augmentation</h3>
+        <p class="meta">Z. Khanjani, L. Davis, A. Tuz, <b>K. Nwosu</b>, C. Mallinson, V. P. Janeja · IEEE International Conference on Intelligence and Security Informatics (ISI) · 2023 · <a href="https://ieeexplore.ieee.org/document/10297267" target="_blank" rel="noopener">Read on IEEE Xplore</a></p>
+      </article>
+      <article class="entry pub" data-lane="both">
+        <p class="kicker">Co-author · 8 citations</p>
+        <h3>A place for (socio)linguistics in audio deepfake detection and discernment: Opportunities for convergence and interdisciplinary collaboration</h3>
+        <p class="meta">C. Mallinson, V. P. Janeja, C. Evered, Z. Khanjani, L. Davis, N. N. Bhalli, et al., including <b>K. Nwosu</b> · Language and Linguistics Compass, 18(5), e12527 · 2024 · <a href="https://doi.org/10.1111/lnc3.12527" target="_blank" rel="noopener">Read the paper</a></p>
+      </article>
+      <article class="entry pub" data-lane="both">
+        <p class="kicker">Co-author · 1 citation</p>
+        <h3>Sociolinguistically-informed educational trainings for audio deepfake discernment</h3>
+        <p class="meta">C. Evered, C. Mallinson, V. P. Janeja, Z. Khanjani, L. Davis, N. Naqvi, et al., including <b>K. Nwosu</b> · British Association for Applied Linguistics · September 2024 · <a href="https://cisaad.umbc.edu/wp-content/uploads/sites/762/2024/12/BAAL-2024_-Sociolinguistically-informed-educational-trainings-for-audio-deepfake-discernment.pdf" target="_blank" rel="noopener">View the presentation</a></p>
+      </article>
+    </div>
+  </section>
+
+
+  <!-- ===================================================== LEADERSHIP ===================================================== -->
+  <section class="win" id="win-leadership" style="--w: 560px; --bar: var(--blue); --bar-ink: var(--white); --shadow: var(--yellow); left: 360px; top: 140px;" aria-labelledby="t-lead">
+    <div class="titlebar"><span class="dots" aria-hidden="true"><i></i><i></i></span><h2 id="t-lead">Leadership</h2><button type="button" class="close" aria-label="Close Leadership">×</button></div>
+    <div class="content">
+      <div class="timeline">
+        <div class="step entry" data-lane="comm">
+          <span class="yr">2023 – 2025</span>
+          <h3>Freshman Representative → President · Organization of African Students</h3>
+          <p>Freshman Representative (2023–24), then President (2024–25).</p>
+          <ul>
+            <li><b>More than doubled turnout:</b> regular meetings grew from 20–25 students to about 60</li>
+            <li>Ran <b>Afro Week</b> and the <b>25th-anniversary Afrocentric Gala</b>, with events representing multiple African regions</li>
+            <li>Opened OAS up to non-African students who wanted to learn about the culture and be part of the community</li>
+            <li>OAS was named <b>ALANA Cultural Organization of the Year</b></li>
+          </ul>
+          <figure class="lead-photo">
+            <img src="assets/photos/leadership/oas-collage.jpg" alt="Collage of OAS events: a large group photo in a stairwell, members by an OAS mural, game-night tabling with a prize wheel, a packed general meeting, a student panel, and members in red and burgundy gowns cutting a cake at the Afrocentric Gala" width="1400" height="670" loading="lazy">
+            <figcaption>OAS meetings, panels, giveaways and the 25th Afrocentric Gala</figcaption>
+          </figure>
+        </div>
+        <div class="step entry" data-lane="comm">
+          <span class="yr">2025 – 2026</span>
+          <h3>Vice President · ALANA Collegiate Association, RIT Student Government</h3>
+          <p>ACA is the umbrella for RIT's African, Latin, Asian and Native American student organizations. I managed a <b>$45,000 budget</b> ($30,000 operating plus student salaries).</p>
+          <p><b>My platform</b> had four pillars:</p>
+          <ul>
+            <li><b>Visibility:</b> monthly affiliate spotlights in the ACA newsletter, and cultural-month events co-hosted with affiliates</li>
+            <li><b>Inclusion:</b> freshman representatives so first-years connect with ACA leaders, and an expanded ALANA Wednesdays that celebrates communities during their heritage months</li>
+            <li><b>Balance:</b> programming built with RIT resources around wellness, mental health and cultural relevance</li>
+            <li><b>Effectivity:</b> a friendlier website and clearer paths to ACA's office hours, funding and other resources</li>
+          </ul>
+          <figure class="lead-photo">
+            <img src="assets/photos/leadership/aca-platform.jpg" alt="Four campaign posters titled Visibility, Inclusion, Balance and Effectivity, each listing numbered platform goals" width="1400" height="527" loading="lazy">
+            <figcaption>My spring 2025 campaign graphics</figcaption>
+          </figure>
+        </div>
+      </div>
+      <article class="entry" data-lane="comm">
+        <h3>Alternative Spring Break</h3>
+        <p class="meta">Camden, New Jersey · March 2024 · one week</p>
+        <p>A week of service with community partners in Camden: tutoring high school students, serving at a soup kitchen, helping at a senior home, and cleaning up local churches and schools.</p>
+        <figure class="lead-photo">
+          <img src="assets/photos/leadership/asb-camden.jpg" alt="Alternative Spring Break volunteers doing a street cleanup under blossoming trees, in aprons at a soup kitchen, and at a community dining hall in Camden" width="1330" height="560" loading="lazy">
+          <figcaption>Cleanup, soup kitchen and community meals in Camden</figcaption>
+        </figure>
+      </article>
+      <article class="entry" data-lane="comm">
+        <h3>More service</h3>
+        <ul>
+          <li><b>Newman Big/Little mentorship:</b> peer support and community for fellow students</li>
+          <li><b>RIT Foodshare:</b> distributing food to students and community members in need</li>
+          <li><b>Mt. Hope Cemetery cleanup crew:</b> caring for one of Rochester's historic spaces</li>
+          <li><b>WiSEN panels:</b> spoke with faculty and staff about supporting students of color in STEM</li>
+        </ul>
+      </article>
+      <article class="entry" data-lane="both">
+        <h3>Fellowships</h3>
+        <div class="tags"><span class="tag both">McNAIR SCHOLAR</span><span class="tag code">LSAMP FELLOW</span><span class="tag comm">WiSEN FELLOW</span><span class="tag code">CRA-DREU FELLOW</span><span class="tag both">CSTEP</span></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===================================================== ON THE MIC ===================================================== -->
+  <section class="win" id="win-mic" style="--w: 620px; --bar: var(--pink); --shadow: var(--yellow); left: 862px; top: 100px;" aria-labelledby="t-mic">
+    <div class="titlebar"><span class="dots" aria-hidden="true"><i></i><i></i></span><h2 id="t-mic">On the Mic</h2><button type="button" class="close" aria-label="Close On the Mic">×</button></div>
+    <div class="content">
+      <p class="mic-intro">Where I've presented, organized, advocated and served.</p>
+      <div class="badges">
+        <article class="badge entry" data-lane="comm" style="--strap: var(--blue)">
+          <span class="role">Advocate</span>
+          <h3>Court support + GBV trainings, Mosaic</h3>
+          <p>Help survivors through protection orders and court, and support community trainings on gender-based and intimate partner violence that have reached 600+ people.</p>
+          <div class="badge-foot"><p class="meta">Mitchells Plain · Philippi · Khayelitsha · 2026</p><span class="mini-stamp" aria-hidden="true">Cape<br>Town</span></div>
+        </article>
+        <article class="badge entry" data-lane="comm" style="--strap: var(--yellow)">
+          <span class="role">Organizer</span>
+          <h3>Power Her Forward Girls Conference</h3>
+          <p>Helped plan and run a day-long leadership conference for 350+ girls with the Women's Foundation of the Genesee Valley.</p>
+          <div class="badge-foot"><p class="meta">Rochester, NY · May 5, 2026</p><span class="mini-stamp" aria-hidden="true">ROC<br>NY</span></div>
+        </article>
+        <article class="badge entry" data-lane="comm" style="--strap: var(--pink)">
+          <span class="role">Presenter</span>
+          <h3>RIT WGSS Symposium</h3>
+          <p class="prize">★ First prize + research funding</p>
+          <p>Presented my research on religion as the central barrier to queer and women's liberation in Nigeria.</p>
+          <div class="badge-foot"><p class="meta">Rochester, NY · Spring 2026</p><span class="mini-stamp" aria-hidden="true">ROC<br>NY</span></div>
+        </article>
+        <article class="badge entry" data-lane="comm" style="--strap: var(--yellow)">
+          <span class="role">Delegate</span>
+          <h3>RIT Student Government Consortium</h3>
+          <p>Represented RIT Student Government alongside student leaders from RIT's global campuses.</p>
+          <div class="badge-foot"><p class="meta">Kosovo · October 2025</p><span class="mini-stamp" aria-hidden="true">Kosovo<br>2025</span></div>
+        </article>
+        <article class="badge entry" data-lane="both" style="--strap: var(--pink)">
+          <span class="role">Presenter</span>
+          <h3>2025 Annual Undergraduate Conference</h3>
+          <p>Presented our accessibility audit of gaming storefronts and the Figma redesigns that fix what we found.</p>
+          <div class="badge-foot"><p class="meta">Rochester, NY · July 2025</p><span class="mini-stamp" aria-hidden="true">ROC<br>NY</span></div>
+        </article>
+        <article class="badge entry" data-lane="code" style="--strap: var(--blue)">
+          <span class="role">Presenter</span>
+          <h3>ADSA '24, Academic Data Science Alliance</h3>
+          <p>Presented my work on auto-annotating linguistic features to detect and explain audio deepfakes.</p>
+          <div class="badge-foot"><p class="meta">Michigan · November 2024</p><span class="mini-stamp" aria-hidden="true">MI<br>2024</span></div>
+        </article>
+        <article class="badge entry" data-lane="both" style="--strap: var(--yellow)">
+          <span class="role">Presenter</span>
+          <h3>RIT Student Research in Communication Conference</h3>
+          <p>Presented "Can You Spot a Deepfake?" on how listeners can tell real voices from AI-generated ones.</p>
+          <div class="badge-foot"><p class="meta">Rochester, NY · April 2024</p><span class="mini-stamp" aria-hidden="true">ROC<br>NY</span></div>
+        </article>
+        <article class="badge entry" data-lane="both" style="--strap: var(--pink)">
+          <span class="role">Panelist</span>
+          <h3>WiSEN panels</h3>
+          <p>Spoke with faculty and staff about supporting students of color in STEM, and joined a panel on navigating college.</p>
+          <div class="badge-foot"><p class="meta">Rochester, NY · Spring 2024</p><span class="mini-stamp" aria-hidden="true">RIT</span></div>
+        </article>
+        <article class="badge entry" data-lane="comm" style="--strap: var(--blue)">
+          <span class="role">Volunteer</span>
+          <h3>Alternative Spring Break</h3>
+          <p>A week of tutoring, soup kitchen shifts, senior home visits and community cleanups.</p>
+          <div class="badge-foot"><p class="meta">Camden, NJ · March 2024</p><span class="mini-stamp" aria-hidden="true">Camden<br>NJ</span></div>
+        </article>
+        <article class="badge entry" data-lane="code" style="--strap: var(--yellow)">
+          <span class="role">Speaker</span>
+          <h3>Assured and Trustworthy Human-centered AI (ATHAI)</h3>
+          <p>Gave a lightning talk and joined a panel on our audio deepfake annotation research at this AAAI symposium.</p>
+          <div class="badge-foot"><p class="meta">November 2023</p><span class="mini-stamp" aria-hidden="true">ATHAI<br>2023</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+
+
+
+  <!-- ===================================================== AWARDS ===================================================== -->
+  <section class="win" id="win-awards" style="--w: 520px; --bar: var(--yellow); --shadow: var(--pink); left: 480px; top: 120px;" aria-labelledby="t-awards">
+    <div class="titlebar"><span class="dots" aria-hidden="true"><i></i><i></i></span><h2 id="t-awards">Awards</h2><button type="button" class="close" aria-label="Close Awards">×</button></div>
+    <div class="content">
+      <div class="award"><div class="medal" aria-hidden="true">1</div><div><h3>First Prize, WGSS Symposium Student Award</h3><p class="meta">RIT · 2026 · for my research on religion as a central barrier to queer and women's liberation in Nigeria, with funding to continue the work</p><button type="button" class="link-btn" data-open="win-research">See the research →</button></div></div>
+      <div class="award"><div class="medal" aria-hidden="true">★</div><div><h3>Communication and Ethics Award</h3><p class="meta">RIT · 2026 · for "The Pink Price Tag," my magazine on the pink tax, backed by an original student survey</p><button type="button" class="link-btn" data-open="win-research">Read the magazine →</button></div></div>
+      <div class="award"><div class="medal" aria-hidden="true">★</div><div><h3>Student Beacon Award</h3><p class="meta">RIT Division of Access, Engagement, and Success · 2026 · one of three students honored for outstanding leadership and for building a welcoming community on campus</p><button type="button" class="link-btn" data-open="win-leadership">See my leadership →</button></div></div>
+      <div class="award"><div class="medal" aria-hidden="true">$</div><div><h3>Larsen-Brownell Scholarship</h3><p class="meta">RIT · 2026 · up to $2,000 for community-engaged project work</p></div></div>
+      <div class="award"><div class="medal" aria-hidden="true">$</div><div><h3>Alfred L. and Ruby C. Davis Scholarship Award</h3><p class="meta">RIT · 2026 · for improving campus life and community involvement</p></div></div>
+      <div class="award"><div class="medal" aria-hidden="true">★</div><div><h3>Liberal Arts Multidisciplinary Scholar</h3><p class="meta">RIT College of Liberal Arts · 2025 · financial and academic support for STEM majors who take on a second major in the liberal arts, in my case computer science + WGSS</p></div></div>
+      <div class="award"><div class="medal" aria-hidden="true">$</div><div><h3>Ruth M. and Brackett H. Clark Internship Support Fund</h3><p class="meta">RIT College of Liberal Arts · 2025 · supported my Girls Initiative internship at the Women's Foundation of the Genesee Valley in Rochester, NY</p></div></div>
+    </div>
+  </section>
+
+  <!-- ===================================================== RESUMES ===================================================== -->
+  <section class="win" id="win-resumes" style="--w: 500px; --bar: var(--yellow); left: 520px; top: 180px;" aria-labelledby="t-res">
+    <div class="titlebar"><span class="dots" aria-hidden="true"><i></i><i></i></span><h2 id="t-res">Résumés</h2><button type="button" class="close" aria-label="Close Résumés">×</button></div>
+    <div class="content">
+      <p>Pick the version that fits what you're hiring for.</p>
+      <div class="doc"><div><h3>Software engineering</h3><p class="meta">ML research + full-stack</p></div><a class="btn" href="assets/resumes/Nwosu_Resume_SWE.pdf" target="_blank" rel="noopener">Open PDF</a></div>
+      <div class="doc"><div><h3>Gender &amp; social impact</h3><p class="meta">Advocacy + research</p></div><a class="btn" href="assets/resumes/Nwosu_Resume_Gender_Impact.pdf" target="_blank" rel="noopener">Open PDF</a></div>
+      <div class="doc"><div><h3>Tech + social impact</h3><p class="meta">Both worlds on one page</p></div><a class="btn" href="assets/resumes/Nwosu_Resume_Tech_Social_Impact.pdf" target="_blank" rel="noopener">Open PDF</a></div>
+    </div>
+  </section>
+
+  <!-- ===================================================== CONTACT ===================================================== -->
+  <section class="win" id="win-contact" style="--w: 480px; --bar: var(--pink); --shadow: var(--blue); left: 560px; top: 220px;" aria-labelledby="t-contact">
+    <div class="titlebar"><span class="dots" aria-hidden="true"><i></i><i></i></span><h2 id="t-contact">Contact</h2><button type="button" class="close" aria-label="Close Contact">×</button></div>
+    <div class="content">
+      <h3>Let's talk.</h3>
+      <p>Open to roles in software, data, research, policy and gender equity. Available to relocate.</p>
+      <div class="copyrow"><code id="email">nwosukiffy@gmail.com</code><button type="button" class="btn" id="copyEmail">Copy email</button></div>
+      <p class="status" id="copyStatus" aria-live="polite"></p>
+      <div class="copyrow">
+        <a class="btn" href="https://www.linkedin.com/in/kifekachukwu-nwosu-515211205" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+(function () {
+  const wins = Array.from(document.querySelectorAll('.win'));
+  let z = 20;
+  const isScroll = function () { return document.body.classList.contains('scroll'); };
+  function front(win) { win.style.zIndex = ++z; }
+  function keepOnScreen(win) {
+    const maxLeft = Math.max(8, window.innerWidth - win.offsetWidth - 16);
+    if ((parseFloat(win.style.left) || 0) > maxLeft) win.style.left = maxLeft + 'px';
+  }
+  function openWin(id) {
+    const win = document.getElementById(id);
+    if (!win) return;
+    if (isScroll()) {
+      win.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+      return;
+    }
+    win.classList.add('open'); front(win); keepOnScreen(win);
+    const btn = win.querySelector('.close'); if (btn) btn.focus({ preventScroll: true });
+  }
+  function closeWin(win) {
+    win.classList.remove('open');
+    const opener = document.querySelector('.icon[data-open="' + win.id + '"]');
+    if (opener) opener.focus({ preventScroll: true });
+  }
+
+  // Clock
+  (function () {
+    const c = document.getElementById('clock');
+    function tick() { const d = new Date(); c.textContent = d.toLocaleDateString(undefined, { weekday: 'short' }) + ' ' + d.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' }); }
+    const ct = document.getElementById('ctTime');
+    function ctTick() { try { ct.textContent = new Date().toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit', timeZone: 'Africa/Johannesburg' }) + ' in Cape Town'; } catch (e) {} }
+    tick(); ctTick(); setInterval(function () { tick(); ctTick(); }, 20000);
+  })();
+
+  // Logo clears the desktop
+  document.getElementById('clearDesk').addEventListener('click', function () {
+    if (isScroll()) { window.scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }); return; }
+    wins.forEach(function (w) { w.classList.remove('open'); });
+  });
+  document.querySelectorAll('[data-open]').forEach(function (el) {
+    el.addEventListener('click', function () { openWin(el.dataset.open); });
+  });
+
+  // Dragging windows by their title bars
+  wins.forEach(function (win) {
+    win.querySelector('.close').addEventListener('click', function () { closeWin(win); });
+    win.addEventListener('pointerdown', function () { if (!isScroll()) front(win); });
+    const bar = win.querySelector('.titlebar');
+    let sx, sy, ox, oy, dragging = false;
+    bar.addEventListener('pointerdown', function (e) {
+      if (isScroll() || e.target.closest('button')) return;
+      dragging = true; bar.classList.add('dragging');
+      sx = e.clientX; sy = e.clientY; ox = parseFloat(win.style.left) || 0; oy = parseFloat(win.style.top) || 0;
+      bar.setPointerCapture(e.pointerId);
+    });
+    bar.addEventListener('pointermove', function (e) {
+      if (!dragging) return;
+      win.style.left = Math.min(Math.max(-win.offsetWidth + 80, ox + e.clientX - sx), window.innerWidth - 80) + 'px';
+      win.style.top = Math.max(46, oy + e.clientY - sy) + 'px';
+    });
+    function stop() { dragging = false; bar.classList.remove('dragging'); }
+    bar.addEventListener('pointerup', stop); bar.addEventListener('pointercancel', stop);
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Escape' || isScroll()) return;
+    const win = e.target.closest && e.target.closest('.win.open');
+    if (win) closeWin(win);
+  });
+
+  // Scroll view toggle; phones always use it
+  const toggle = document.getElementById('viewToggle');
+  const narrow = matchMedia('(max-width: 820px)');
+  function setScroll(on) {
+    document.body.classList.toggle('scroll', on);
+    toggle.setAttribute('aria-pressed', String(on));
+    toggle.textContent = on ? 'Desktop view' : 'Scroll view';
+  }
+  toggle.addEventListener('click', function () { setScroll(!isScroll()); window.scrollTo(0, 0); });
+  narrow.addEventListener('change', function () { setScroll(narrow.matches); });
+  setScroll(narrow.matches);
+
+  // Phones/scroll view show everything; on the desktop, start with a clean screen of widgets
+  if (isScroll()) document.getElementById('win-about').classList.add('open');
+  front(document.getElementById('win-about'));
+
+  // Show: All / Code / Community
+  const laneBtns = Array.from(document.querySelectorAll('[data-lane-btn]'));
+  function setLane(lane) {
+    if (lane === 'all') document.body.removeAttribute('data-lane'); else document.body.dataset.lane = lane;
+    laneBtns.forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.laneBtn === lane)); });
+    wins.forEach(function (w) {
+      const items = w.querySelectorAll('[data-lane]');
+      if (!items.length) return;
+      if (!w.querySelector('.emptymsg')) {
+        const m = document.createElement('p'); m.className = 'emptymsg';
+        m.textContent = 'Nothing in this folder for this filter. Switch Show to All.';
+        w.querySelector('.content').prepend(m);
+      }
+      const visible = Array.from(items).some(function (el) { return getComputedStyle(el).display !== 'none'; });
+      w.classList.toggle('empty', !visible);
+      document.querySelectorAll('.icon[data-open="' + w.id + '"]').forEach(function (ic) { ic.classList.toggle('dim', !visible); });
+    });
+    const banner = document.getElementById('laneBanner');
+    banner.textContent = '';
+    if (lane === 'all') { banner.hidden = true; return; }
+    const label = document.createElement('span');
+    label.textContent = lane === 'code' ? 'Showing code + research work' : 'Showing community + advocacy work';
+    const all = document.createElement('button'); all.type = 'button'; all.textContent = 'Show all';
+    all.addEventListener('click', function () { setLane('all'); });
+    banner.append(label, all); banner.hidden = false;
+  }
+  laneBtns.forEach(function (b) { b.addEventListener('click', function () { setLane(b.dataset.laneBtn); }); });
+
+  // Sticker laptop (EDIT the details here; "cls" is the class where you used it, or leave it out)
+  const skills = {
+    python: { n: 'Python', where: 'MDATA Lab, UMBC (2023–2025) · CRA-DREU, RIT (2026)', did: 'Built unsupervised anomaly-detection models for audio and an evaluation pipeline for zero-shot NLP on 13,000+ tweets.', cls: 'Computer Science I · Principles of Data Management', open: 'win-research' },
+    java: { n: 'Java', where: 'HeartStrings · coursework', did: 'Wrote HeartStrings\u2019 back end with JUnit test suites. In class: object-oriented programming, JavaFX interfaces, threads and network programming.', cls: 'Computer Science II · Introduction to Software Engineering · Programming Language Concepts', open: 'win-code' },
+    pytorch: { n: 'PyTorch', where: 'MDATA Lab, UMBC', did: 'Trained and evaluated models for audio deepfake detection, including matrix-profile anomaly detection on audio time series; results in 4 peer-reviewed papers.', open: 'win-research' },
+    hf: { n: 'Hugging Face / Transformers', where: 'CRA-DREU, RIT (2026)', did: 'Ran zero-shot classification with BART-large-MNLI on #EndSARS tweets, uncovered its hidden 0.40 decision cutoff, and tested other thresholds to study where the model and human coding disagree.', open: 'win-research' },
+    angular: { n: 'Angular', where: 'HeartStrings', did: 'Built the front end: campaign pages, the funding basket and manager tools.', cls: 'Introduction to Software Engineering', open: 'win-code' },
+    spring: { n: 'Spring Boot + REST APIs', where: 'HeartStrings', did: 'Built the REST API connecting the Angular front end to the data layer.', cls: 'Introduction to Software Engineering', open: 'win-code' },
+    sql: { n: 'SQL (MySQL, PostgreSQL)', where: 'HeartStrings · coursework', did: 'Designed relational schemas across MySQL and PostgreSQL, and studied database design and querying.', cls: 'Principles of Data Management · Introduction to Software Engineering', open: 'win-code' },
+    csharp: { n: 'C#', where: 'Coursework', did: 'Used C# to build parallel and distributed programs.', cls: 'Concepts of Parallel and Distributed Systems' },
+    pandas: { n: 'Pandas + NumPy + Matplotlib', where: 'MDATA Lab, UMBC · CRA-DREU, RIT', did: 'Built end-to-end data pipelines for cleaning, feature extraction and model training, and visualized results and evaluation metrics.', open: 'win-research' },
+    web: { n: 'JavaScript + HTML/CSS', where: 'This website (Kiffy OS) · HeartStrings', did: 'Built this portfolio\u2019s draggable windows, filter and badge wall, and worked on HeartStrings\u2019 web front end.' },
+    figma: { n: 'Figma', where: 'Golisano College of Computing, RIT (2024)', did: 'Designed an accessible gaming platform prototype with high-contrast modes, screen reader\u2013friendly structure and simplified navigation, based on our audit of Steam, itch.io, PlayStation Store and Nintendo eShop.', open: 'win-code' },
+    c: { n: 'C / C++', where: 'Coursework', did: 'C for low-level systems programming; C++ while studying how programming languages are designed.', cls: 'Mechanics of Programming (C) · Programming Language Concepts (C++)' },
+    git: { n: 'Git + GitHub', where: 'Every team project', did: 'Version control, branches and code review on HeartStrings, team coursework and research code.' },
+    aieval: { n: 'AI evaluation + bias testing', where: 'CRA-DREU, RIT (2026)', did: 'Tested a zero-shot language model against 500 tweets I hand-coded. Agreement was close to chance (kappa 0.01\u20130.05), and the model labeled nearly every tweet the same way. I documented where it fails on Nigerian Pidgin, sarcasm and cultural context.', open: 'win-research' },
+    qual: { n: 'Qualitative + user research', where: 'College of Liberal Arts, RIT · Golisano College of Computing, RIT', did: 'Analyzed interviews, short stories and legal texts for research on queer and women\u2019s liberation in Nigeria, and audited gaming platforms against WCAG and the ADA for players with disabilities.', open: 'win-research' }
+  };
+  const info = document.getElementById('stickerInfo');
+  function row(dl, label, text) {
+    const dt = document.createElement('dt'); dt.textContent = label;
+    const dd = document.createElement('dd'); dd.textContent = text;
+    dl.append(dt, dd);
+  }
+  document.querySelectorAll('.sticker').forEach(function (s) {
+    s.addEventListener('click', function () {
+      document.querySelectorAll('.sticker').forEach(function (o) { o.setAttribute('aria-pressed', 'false'); });
+      s.setAttribute('aria-pressed', 'true');
+      const k = skills[s.dataset.skill];
+      info.textContent = '';
+      const h = document.createElement('h3'); h.textContent = k.n;
+      const dl = document.createElement('dl');
+      row(dl, 'Used in', k.where);
+      row(dl, 'What I did', k.did);
+      if (k.cls) row(dl, 'Class', k.cls);
+      info.append(h, dl);
+      if (k.open && k.open !== 'win-code') {
+        const b = document.createElement('button'); b.type = 'button'; b.className = 'btn goto';
+        b.textContent = k.open === 'win-research' ? 'See the research' : 'See the project';
+        b.addEventListener('click', function () { openWin(k.open); });
+        info.append(b);
+      }
+    });
+  });
+
+  // Slide galleries (HeartStrings, accessible gaming)
+  document.querySelectorAll('.gallery').forEach(function (g) {
+    const main = g.querySelector('.g-main img'), cap = g.querySelector('.g-main figcaption');
+    const all = g.querySelectorAll('.g-thumbs button');
+    all.forEach(function (b) {
+      b.addEventListener('click', function () {
+        all.forEach(function (o) { o.setAttribute('aria-pressed', 'false'); });
+        b.setAttribute('aria-pressed', 'true');
+        main.src = b.dataset.src; main.alt = b.dataset.alt; cap.textContent = b.dataset.cap;
+      });
+    });
+  });
+
+  // Copy email
+  document.getElementById('copyEmail').addEventListener('click', function () {
+    const status = document.getElementById('copyStatus');
+    const el = document.getElementById('email');
+    function fallback() {
+      const r = document.createRange(); r.selectNodeContents(el);
+      const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r);
+      status.textContent = 'Selected. Press Ctrl+C or Cmd+C to copy.';
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(el.textContent).then(function () { status.textContent = 'Copied!'; }, fallback);
+    } else { fallback(); }
+  });
+})();
+</script>
+</body>
+</html>
